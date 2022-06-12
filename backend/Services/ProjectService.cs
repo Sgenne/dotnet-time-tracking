@@ -12,7 +12,7 @@ public class ProjectService : IProjectService
         _projectRepository = projectRepository;
     }
 
-    public async Task<ServiceResult<Project>> CreateProject(CreateProjectDTO createProjectDto)
+    public async Task<Result<Project>> CreateProject(CreateProjectDTO createProjectDto)
     {
         Project storedProject = await _projectRepository
             .AddProject(
@@ -22,7 +22,7 @@ public class ProjectService : IProjectService
                     Title = createProjectDto.Title
                 });
 
-        return new ServiceResult<Project>
+        return new Result<Project>
         {
             Data = storedProject
         };

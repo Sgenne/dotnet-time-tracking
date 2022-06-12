@@ -4,5 +4,5 @@ namespace backend.Services;
 
 public interface IProjectService
 {
-    Task<ServiceResult<Project>> CreateProject(CreateProjectDTO createProjectDto);
+    Task<Result<Project>> CreateProject(CreateProjectDTO createProjectDto);
 }
