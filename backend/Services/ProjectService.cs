@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Models;
 using backend.Optional;
 using backend.Repositories;
@@ -14,7 +15,7 @@ public class ProjectService : IProjectService
         _projectRepository = projectRepository;
     }
 
-    public async Task<Result<Project>> CreateProject(CreateProjectDTO createProjectDto)
+    public async Task<Result<Project>> CreateProject(CreateProjectDto createProjectDto)
     {
         Project storedProject = await _projectRepository
             .AddProject(

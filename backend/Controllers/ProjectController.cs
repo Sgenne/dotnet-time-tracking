@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Models;
 using backend.Result;
 using backend.Services;
@@ -20,7 +21,7 @@ public class ProjectController : ControllerBase
 
 
     [HttpPost]
-    public async Task<IActionResult> CreateProject(CreateProjectDTO createProjectDto)
+    public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
         Result<Project> result =
             await _projectService
