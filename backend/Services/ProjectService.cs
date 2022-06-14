@@ -1,14 +1,15 @@
 using backend.Models;
+using backend.Optional;
 using backend.Repositories;
-using backend.Services.Result;
+using backend.Result;
 
 namespace backend.Services;
 
 public class ProjectService : IProjectService
 {
-    private readonly ProjectRepository _projectRepository;
+    private readonly IProjectRepository _projectRepository;
 
-    public ProjectService(ProjectRepository projectRepository)
+    public ProjectService(IProjectRepository projectRepository)
     {
         _projectRepository = projectRepository;
     }
@@ -23,9 +24,18 @@ public class ProjectService : IProjectService
                     Title = createProjectDto.Title
                 });
 
-        return new Result<Project>
-        {
-            Data = storedProject
-        };
+        return Result<Project>
+            .Success(storedProject);
+    }
+
+    public async Task<Result<Project>> GetProjectById(int projectId)
+    {
+        Optional<Project> foundProject = await _projectRepository
+            .GetProjectById(projectId);
+
+        Result<Project> NoneHandler() =>
+            Result<Project>.Error($"No project with id {projectId} was found", Status.RESOURCE_NOT_FOUND);
+
+        return foundProject.Match(Result<Project>.Success, NoneHandler);
     }
 }

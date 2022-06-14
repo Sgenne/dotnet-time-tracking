@@ -1,20 +1,34 @@
 using backend.Models;
+using backend.Optional;
 
 namespace backend.Repositories;
 
-public class ProjectRepository
+public class ProjectRepository : IProjectRepository
 {
     private List<Project> _projects = new List<Project>();
 
     public async Task<Project> AddProject(Project project)
     {
+        Console.WriteLine($"Project before adding: {String.Join(", ", _projects.Select(p => new { p.Title, p.Description, p.Id }).ToList())}");
+        Console.WriteLine($"number of elements: {_projects.Count}");
+        
+        project.Id = _projects.Count;
+
         _projects.Add(project);
         return project;
     }
 
-    public async Task<Project?> GetProjectById(int projectId)
+    public async Task<Optional<Project>> GetProjectById(int projectId)
     {
-        return _projects
+        Project? foundProject = _projects
             .FirstOrDefault(p => p.Id == projectId);
+
+        if (foundProject == null)
+        {
+            return Optional<Project>.Empty();
+        }
+
+        return Optional<Project>
+            .Of(foundProject);
     }
 }

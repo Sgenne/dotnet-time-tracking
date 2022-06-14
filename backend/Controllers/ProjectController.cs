@@ -1,7 +1,6 @@
 using backend.Models;
+using backend.Result;
 using backend.Services;
-using backend.Services.Result;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
@@ -27,13 +26,19 @@ public class ProjectController : ControllerBase
             await _projectService
                 .CreateProject(createProjectDto);
 
-        if (!result.Success)
-        {
-            return BadRequest(result);
-        }
+        return result.Match(
+            project => Created($"{HttpContext.Request.Host}/{project.Id}", project),
+            (message, status) => Problem(message));
+    }
 
-        string uri = $"{HttpContext.Request.Host}/{result.Data.Id}"; 
-        
-        return Created(uri, result.Data);
+    [HttpGet("{projectId}")]
+    public async Task<IActionResult> GetProjectById(int projectId)
+    {
+        Result<Project> result = await _projectService.GetProjectById(projectId);
+
+        return result.Match<IActionResult>(
+            Ok,
+            (message, status) => NotFound(message)
+        );
     }
 }

@@ -1,4 +1,4 @@
-namespace backend.Services;
+namespace backend.Result;
 
 public enum Status
 {

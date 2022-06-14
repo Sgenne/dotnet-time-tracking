@@ -1,4 +1,6 @@
-namespace backend.Services.Result;
+using backend.Services;
+
+namespace backend.Result;
 
 public class Result<T>
 {
@@ -16,15 +18,15 @@ public class Result<T>
         Message = message;
     }
 
-    public TU Match<TU>(Func<T, TU> successHandler, Func<string, TU> errorHandler) =>
+    public TU Match<TU>(Func<T, TU> successHandler, Func<string, Status, TU> errorHandler) =>
         _success && _value != null
             ? successHandler(_value)
-            : errorHandler(Message);
+            : errorHandler(Message, Status);
 
 
-    public static Result<TU> Success<TU>(TU value) => new(value, Status.OK, "", true);
+    public static Result<T> Success(T value) => new(value, Status.OK, "", true);
 
-    public static Result<TU> Success<TU>(TU value, string message, Status status) => new(
+    public static Result<T> Success(T value, string message, Status status) => new(
         value,
         status,
         message,
