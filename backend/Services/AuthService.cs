@@ -1,13 +1,29 @@
 using backend.Models;
+using backend.Optional;
+using backend.Repositories;
 using backend.Result;
 
 namespace backend.Services;
 
 public class AuthService
 {
-    public Task<Result<User>> RegisterUser(User user)
+
+    private readonly UserRepository _userRepository;
+
+    public AuthService(UserRepository userRepository)
     {
-        throw new NotImplementedException();
+        _userRepository = userRepository;
+    }
+
+    public async Task<Result<User>> RegisterUser(User user)
+    {
+        
+        // check username not occupied
+        
+        User registeredUser = await _userRepository.AddUser(user);
+        
+        
+        
     }
 
     public Task<Result<string>> Login(string username, string password)

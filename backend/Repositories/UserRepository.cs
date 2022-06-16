@@ -5,13 +5,22 @@ namespace backend.Repositories;
 
 public class UserRepository
 {
-    public Task<User> AddUser(User user)
+    private readonly List<User> _users = new();
+
+    public async Task<User> AddUser(User user)
     {
-        throw new NotImplementedException();
+        user.Id = _users.Count;
+        _users.Add(user);
+        return user;
     }
 
-    public Task<Optional<User>> GetUserById(int userId)
+    public async Task<Optional<User>> GetUserById(int userId)
     {
-        throw new NotImplementedException();
+        User? foundUser = _users
+            .FirstOrDefault(u => u.Id == userId);
+
+        return foundUser == null 
+            ? Optional<User>.Empty() 
+            : Optional<User>.Of(foundUser);
     }
 }
