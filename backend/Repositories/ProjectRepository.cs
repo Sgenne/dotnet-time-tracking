@@ -3,7 +3,7 @@ using backend.Optional;
 
 namespace backend.Repositories;
 
-public class ProjectRepository : IProjectRepository
+public class ProjectRepository 
 {
     private List<Project> _projects = new List<Project>();
 

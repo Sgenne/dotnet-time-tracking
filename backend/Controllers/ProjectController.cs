@@ -12,13 +12,12 @@ public class ProjectController : ControllerBase
 {
     public const string ROOT_URL = "/project";
 
-    private readonly IProjectService _projectService;
+    private readonly ProjectService _projectService;
 
-    public ProjectController(IProjectService projectService)
+    public ProjectController(ProjectService projectService)
     {
         _projectService = projectService;
     }
-
 
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)

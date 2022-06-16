@@ -3,7 +3,7 @@ using backend.Result;
 
 namespace backend.Services;
 
-public class AuthService : IAuthService
+public class AuthService
 {
     public Task<Result<User>> RegisterUser(User user)
     {

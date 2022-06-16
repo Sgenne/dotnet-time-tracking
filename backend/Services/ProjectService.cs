@@ -6,11 +6,11 @@ using backend.Result;
 
 namespace backend.Services;
 
-public class ProjectService : IProjectService
+public class ProjectService
 {
-    private readonly IProjectRepository _projectRepository;
+    private readonly ProjectRepository _projectRepository;
 
-    public ProjectService(IProjectRepository projectRepository)
+    public ProjectService(ProjectRepository projectRepository)
     {
         _projectRepository = projectRepository;
     }
