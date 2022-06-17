@@ -1,7 +1,6 @@
-using backend.Models;
 using backend.Optional;
 
-namespace backend.Repositories;
+namespace backend.Project;
 
 public class ProjectRepository 
 {

@@ -1,4 +1,4 @@
-namespace backend.DTOs;
+namespace backend.Project.Dto;
 
 public class CreateProjectDto
 {

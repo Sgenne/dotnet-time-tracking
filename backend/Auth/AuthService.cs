@@ -3,7 +3,7 @@ using backend.Optional;
 using backend.Repositories;
 using backend.Result;
 
-namespace backend.Services;
+namespace backend.Auth;
 
 public class AuthService
 {

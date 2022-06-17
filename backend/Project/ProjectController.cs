@@ -1,10 +1,8 @@
-using backend.DTOs;
-using backend.Models;
+using backend.Project.Dto;
 using backend.Result;
-using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Controllers;
+namespace backend.Project;
 
 [ApiController]
 [Route(ROOT_URL)]

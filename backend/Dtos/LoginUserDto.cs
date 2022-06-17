@@ -1,2 +1,0 @@
-namespace backend.DTOs;
-

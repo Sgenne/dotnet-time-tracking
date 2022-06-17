@@ -1,7 +1,6 @@
-using backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Controllers;
+namespace backend.Auth;
 
 [ApiController]
 [Route("auth")]

@@ -1,10 +1,9 @@
-using backend.DTOs;
-using backend.Models;
 using backend.Optional;
+using backend.Project.Dto;
 using backend.Repositories;
 using backend.Result;
 
-namespace backend.Services;
+namespace backend.Project;
 
 public class ProjectService
 {
