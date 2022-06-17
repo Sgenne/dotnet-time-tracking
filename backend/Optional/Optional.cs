@@ -2,17 +2,18 @@ namespace backend.Optional;
 
 public class Optional<T>
 {
-    private readonly bool _isEmpty;
     private readonly T? _value;
+
+    public bool IsEmpty { get; }
 
     private Optional(bool isEmpty, T? value)
     {
-        _isEmpty = isEmpty;
+        IsEmpty = isEmpty;
         _value = value;
     }
 
     public TU Match<TU>(Func<T, TU> someHandler, Func<TU> noneHandler) =>
-        !_isEmpty && _value != null 
+        !IsEmpty && _value != null 
             ? someHandler(_value) 
             : noneHandler();
 

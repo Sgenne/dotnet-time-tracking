@@ -14,13 +14,17 @@ public class UserRepository
         return user;
     }
 
-    public async Task<Optional<User>> GetUserById(int userId)
+    public Task<Optional<User>> GetUserById(int userId) => GetUser(u => u.Id == userId);
+
+    public Task<Optional<User>> GetUserByUsername(string username) => GetUser(u => u.Username == username);
+    
+    private async Task<Optional<User>> GetUser(Func<User, bool> predicate)
     {
         User? foundUser = _users
-            .FirstOrDefault(u => u.Id == userId);
+            .FirstOrDefault(predicate);
 
-        return foundUser == null 
-            ? Optional<User>.Empty() 
+        return foundUser == null
+            ? Optional<User>.Empty()
             : Optional<User>.Of(foundUser);
     }
 }
