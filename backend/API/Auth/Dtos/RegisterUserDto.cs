@@ -1,4 +1,4 @@
-namespace backend.Auth.Dtos;
+namespace API.Auth.Dtos;
 
 public class RegisterUserDto
 {

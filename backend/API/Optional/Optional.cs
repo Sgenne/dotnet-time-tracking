@@ -1,4 +1,4 @@
-namespace backend.Optional;
+namespace API.Optional;
 
 public class Optional<T>
 {

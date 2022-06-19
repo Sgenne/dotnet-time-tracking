@@ -1,11 +1,11 @@
-using backend.Auth.Dtos;
+using API.Auth.Dtos;
+using API.Optional;
+using API.Result;
 using backend.Models;
-using backend.Optional;
 using backend.Repositories;
-using backend.Result;
-using static backend.Auth.Cryptography.PasswordHandler;
+using static API.Auth.Cryptography.PasswordHandler;
 
-namespace backend.Auth;
+namespace API.Auth;
 
 public class AuthService
 {
@@ -35,7 +35,7 @@ public class AuthService
         {
             return Result<User>
                 .Error(
-                    $"Username \"{username}\" is not available.", Status.FORBIDDEN
+                    $"Username \"{username}\" is not available.", Status.Forbidden
                 );
         }
 

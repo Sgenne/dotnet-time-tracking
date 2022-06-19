@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace backend.Auth.Cryptography;
+namespace API.Auth.Cryptography;
 
 public static class PasswordHandler
 {

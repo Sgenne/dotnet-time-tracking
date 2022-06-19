@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Auth;
+namespace API.Auth;
 
 [ApiController]
 [Route("auth")]

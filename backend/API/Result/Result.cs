@@ -1,4 +1,4 @@
-namespace backend.Result;
+namespace API.Result;
 
 public class Result<T>
 {
@@ -22,7 +22,7 @@ public class Result<T>
             : errorHandler(Message, Status);
 
 
-    public static Result<T> Success(T value) => new(value, Status.OK, "", true);
+    public static Result<T> Success(T value) => new(value, Status.Ok, "", true);
 
     public static Result<T> Success(T value, string message, Status status) => new(
         value,

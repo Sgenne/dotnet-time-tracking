@@ -1,8 +1,8 @@
-using backend.Project.Dto;
-using backend.Result;
+using API.Project.Dto;
+using API.Result;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Project;
+namespace API.Project;
 
 [ApiController]
 [Route(ROOT_URL)]
@@ -20,7 +20,7 @@ public class ProjectController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
-        Result<Project> result =
+        Result<API.Project.Project> result =
             await _projectService
                 .CreateProject(createProjectDto);
 
@@ -32,7 +32,7 @@ public class ProjectController : ControllerBase
     [HttpGet("{projectId}")]
     public async Task<IActionResult> GetProjectById(int projectId)
     {
-        Result<Project> result = await _projectService.GetProjectById(projectId);
+        Result<API.Project.Project> result = await _projectService.GetProjectById(projectId);
 
         return result.Match<IActionResult>(
             Ok,

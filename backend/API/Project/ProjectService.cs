@@ -1,9 +1,8 @@
-using backend.Optional;
-using backend.Project.Dto;
-using backend.Repositories;
-using backend.Result;
+using API.Optional;
+using API.Project.Dto;
+using API.Result;
 
-namespace backend.Project;
+namespace API.Project;
 
 public class ProjectService
 {
@@ -34,7 +33,7 @@ public class ProjectService
             .GetProjectById(projectId);
 
         Result<Project> NoneHandler() =>
-            Result<Project>.Error($"No project with id {projectId} was found", Status.RESOURCE_NOT_FOUND);
+            Result<Project>.Error($"No project with id {projectId} was found", Status.ResourceNotFound);
 
         return foundProject.Match(Result<Project>.Success, NoneHandler);
     }

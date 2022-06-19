@@ -1,4 +1,4 @@
-namespace backend.Auth.Cryptography;
+namespace API.Auth.Cryptography;
 
 public static class TokenHandler
 {

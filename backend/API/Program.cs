@@ -1,5 +1,4 @@
-using backend.Project;
-using backend.Repositories;
+using API.Project;
 
 var builder = WebApplication.CreateBuilder(args);
 

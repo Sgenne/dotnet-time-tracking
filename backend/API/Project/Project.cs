@@ -1,4 +1,4 @@
-namespace backend.Project;
+namespace API.Project;
 
 public class Project
 {

@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using backend.Result;
+using API.Result;
 
 namespace Tests.API.Result;
 
@@ -8,7 +8,7 @@ public class ResultTests
     [Fact]
     public void Match_ErrorResultExecutesErrorHandler()
     {
-        Result<int> result = Result<int>.Error("message", Status.RESOURCE_NOT_FOUND);
+        Result<int> result = Result<int>.Error("message", Status.ResourceNotFound);
 
         int SuccessHandler(int _) =>
             throw new Exception("SuccessHandler was used when calling Match on an error Result.");
@@ -21,7 +21,7 @@ public class ResultTests
     [Fact]
     public void Match_SuccessResultExecutesSuccessHandler()
     {
-        Result<int> result0 = Result<int>.Success(1, "message", Status.OK);
+        Result<int> result0 = Result<int>.Success(1, "message", Status.Ok);
         Result<int> result1 = Result<int>.Success(1);
 
         int SuccessHandler(int i) => i;
