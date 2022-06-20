@@ -1,7 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
 using API.Result;
 
-namespace Tests.API.Result;
+namespace Tests.API.ResultTests;
 
 public class ResultTests
 {

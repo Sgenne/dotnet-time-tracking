@@ -1,13 +1,12 @@
 using API.Auth.Dtos;
 using API.Optional;
 using API.Result;
-using backend.Models;
-using backend.Repositories;
+using API.User;
 using static API.Auth.Cryptography.PasswordHandler;
 
 namespace API.Auth;
 
-public class AuthService
+public class AuthService : IAuthService
 {
     private const int PasswordSaltLength = 64;
 
@@ -23,17 +22,17 @@ public class AuthService
     /// </summary>
     /// <param name="dto">The object containing the username and password of the user to be registered.</param>
     /// <returns>A Result object containing the registered User object or an error message.</returns>
-    public async Task<Result<User>> RegisterUser(RegisterUserDto dto)
+    public async Task<Result<User.User>> RegisterUser(RegisterUserDto dto)
     {
         string username = dto.Username;
         string password = dto.Password;
 
-        Optional<User> existingUser = await _userRepository
+        Optional<User.User> existingUser = await _userRepository
             .GetUserByUsername(username);
 
         if (!existingUser.IsEmpty)
         {
-            return Result<User>
+            return Result<User.User>
                 .Error(
                     $"Username \"{username}\" is not available.", Status.Forbidden
                 );
@@ -42,14 +41,14 @@ public class AuthService
         byte[] passwordSalt = CreatePasswordSalt(PasswordSaltLength);
         byte[] passwordHash = ComputePasswordHash(password, passwordSalt);
         
-        User registeredUser = await _userRepository.AddUser(new User
+        User.User registeredUser = await _userRepository.AddUser(new User.User
         {
             Username = username,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
         });
 
-        return Result<User>
+        return Result<User.User>
             .Success(registeredUser);
     }
 

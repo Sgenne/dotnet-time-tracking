@@ -1,9 +1,8 @@
 using API.Optional;
-using backend.Models;
 
-namespace backend.Repositories;
+namespace API.User;
 
-public class UserRepository
+public class UserRepository : IUserRepository
 {
     private readonly List<User> _users = new();
 

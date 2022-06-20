@@ -4,11 +4,11 @@ using API.Result;
 
 namespace API.Project;
 
-public class ProjectService
+public class ProjectService : IProjectService
 {
-    private readonly ProjectRepository _projectRepository;
+    private readonly IProjectRepository _projectRepository;
 
-    public ProjectService(ProjectRepository projectRepository)
+    public ProjectService(IProjectRepository projectRepository)
     {
         _projectRepository = projectRepository;
     }
@@ -24,7 +24,7 @@ public class ProjectService
                 });
 
         return Result<Project>
-            .Success(storedProject);
+            .Success(storedProject, "", Status.Created);
     }
 
     public async Task<Result<Project>> GetProjectById(int projectId)
