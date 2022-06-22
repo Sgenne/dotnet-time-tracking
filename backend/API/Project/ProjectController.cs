@@ -20,11 +20,11 @@ public class ProjectController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
-        Result<API.Project.Project> result =
+        Result<Project> result =
             await _projectService
                 .CreateProject(createProjectDto);
 
-        return result.Match(
+        return result.Match<IActionResult>(
             project => Created($"{HttpContext.Request.Host}/{project.Id}", project),
             (message, status) => Problem(message));
     }
@@ -32,7 +32,7 @@ public class ProjectController : ControllerBase
     [HttpGet("{projectId}")]
     public async Task<IActionResult> GetProjectById(int projectId)
     {
-        Result<API.Project.Project> result = await _projectService.GetProjectById(projectId);
+        Result<Project> result = await _projectService.GetProjectById(projectId);
 
         return result.Match<IActionResult>(
             Ok,
