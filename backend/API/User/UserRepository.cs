@@ -16,7 +16,7 @@ public class UserRepository : IUserRepository
     public Task<Optional<User>> GetUserById(int userId) => GetUser(u => u.Id == userId);
 
     public Task<Optional<User>> GetUserByUsername(string username) => GetUser(u => u.Username == username);
-    
+
     private async Task<Optional<User>> GetUser(Func<User, bool> predicate)
     {
         User? foundUser = _users

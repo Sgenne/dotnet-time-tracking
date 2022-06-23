@@ -10,9 +10,9 @@ public class AuthService : IAuthService
 {
     private const int PasswordSaltLength = 64;
 
-    private readonly UserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
 
-    public AuthService(UserRepository userRepository)
+    public AuthService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
@@ -40,7 +40,7 @@ public class AuthService : IAuthService
 
         byte[] passwordSalt = CreatePasswordSalt(PasswordSaltLength);
         byte[] passwordHash = ComputePasswordHash(password, passwordSalt);
-        
+
         User.User registeredUser = await _userRepository.AddUser(new User.User
         {
             Username = username,
@@ -49,7 +49,7 @@ public class AuthService : IAuthService
         });
 
         return Result<User.User>
-            .Success(registeredUser);
+            .Success(registeredUser, "New user added successfully.", Status.Created);
     }
 
     public Task<Result<string>> Login(string username, string password)
