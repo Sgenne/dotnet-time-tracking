@@ -36,7 +36,7 @@ public static class PasswordHandler
     /// <param name="passwordHash">The hash value of the true password.</param>
     /// <returns>A boolean value indicating whether the password was correct.</returns>
     public static bool VerifyPassword(string password, byte[] salt, byte[] passwordHash) =>
-        ComputePasswordHash(password, salt).Equals(passwordHash);
+        ComputePasswordHash(password, salt).SequenceEqual(passwordHash);
 
     /// <summary>
     /// Combines the password and salt into one array of bytes.
