@@ -1,6 +1,6 @@
 using API.Optional;
 
-namespace API.User;
+namespace API.Auth;
 
 public class UserRepository : IUserRepository
 {

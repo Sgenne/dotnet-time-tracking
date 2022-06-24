@@ -1,6 +1,6 @@
 using System.Text;
+using API.Auth;
 using API.Optional;
-using API.User;
 
 namespace Tests.API.UserTests;
 

@@ -10,7 +10,7 @@ public interface IAuthService
     /// </summary>
     /// <param name="dto">The object containing the username and password of the user to be registered.</param>
     /// <returns>A Result object containing the registered User object or an error message.</returns>
-    Task<Result<User.User>> RegisterUser(RegisterUserDto dto);
+    Task<Result<User>> RegisterUser(RegisterUserDto dto);
 
     Task<Result<string>> Login(string username, string password);
 }

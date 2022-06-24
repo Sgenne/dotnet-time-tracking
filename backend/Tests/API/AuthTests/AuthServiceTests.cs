@@ -2,7 +2,6 @@ using API.Auth;
 using API.Auth.Dtos;
 using API.Optional;
 using API.Result;
-using API.User;
 using Moq;
 
 namespace Tests.API.AuthTests;
