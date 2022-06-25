@@ -1,3 +1,4 @@
+using API.Auth.Cryptography;
 using API.Auth.Dtos;
 using API.Optional;
 using API.Result;
@@ -10,10 +11,12 @@ public class AuthService : IAuthService
     private const int PasswordSaltLength = 64;
 
     private readonly IUserRepository _userRepository;
+    private IConfiguration _configuration;
 
-    public AuthService(IUserRepository userRepository)
+    public AuthService(IUserRepository userRepository, IConfiguration configuration)
     {
         _userRepository = userRepository;
+        _configuration = configuration;
     }
 
     /// <summary>
@@ -51,8 +54,16 @@ public class AuthService : IAuthService
             .Success(registeredUser, "New user added successfully.", Status.Created);
     }
 
-    public async Task<Result<string>> Login(string username, string password)
+    /// <summary>
+    /// Signs a user in by generating and returning an access token
+    /// </summary>
+    /// <param name="loginDto">The object containing the username and password of the user.</param>
+    /// <returns>The created access token.</returns>
+    public async Task<Result<string>> Login(LoginDto loginDto)
     {
+        string username = loginDto.Username;
+        string password = loginDto.Password;
+        
         Optional<User> optionalUser = await _userRepository.GetUserByUsername(username);
 
         if (optionalUser.IsEmpty)
@@ -62,17 +73,16 @@ public class AuthService : IAuthService
         }
 
         User user = optionalUser.Some(u => u);
-        
-        // Validate password
         bool passwordIsCorrect = VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
 
         if (!passwordIsCorrect)
         {
             return Result<string>.Error("The given password was invalid.", Status.Unauthorized);
         }
-        
-        // Generate token
-        return Result<string>.Error("dingus", Status.Created);
 
+        string secret = _configuration.GetSection("AppSettings:Token").Value;
+        string token = TokenHandler.CreateToken(user, secret);
+
+        return Result<string>.Success(token);
     }
 }

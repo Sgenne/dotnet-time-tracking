@@ -12,5 +12,5 @@ public interface IAuthService
     /// <returns>A Result object containing the registered User object or an error message.</returns>
     Task<Result<User>> RegisterUser(RegisterUserDto dto);
 
-    Task<Result<string>> Login(string username, string password);
+    Task<Result<string>> Login(LoginDto loginDto);
 }

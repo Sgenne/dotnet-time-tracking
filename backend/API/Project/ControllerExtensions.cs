@@ -1,5 +1,6 @@
 using API.Project.Dto;
 using API.Result;
+using API.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Project;
@@ -25,8 +26,8 @@ public class ProjectController : ControllerBase
                 .CreateProject(createProjectDto);
 
         return result.Match<IActionResult>(
-            project => Created($"{HttpContext.Request.Host}/{project.Id}", project),
-            (message, status) => Problem(message));
+            project => Created($"{HttpContext.Request.Host}/project/{project.Id}", project),
+            this.HandleErrorResult);
     }
 
     [HttpGet("{projectId}")]
@@ -36,7 +37,7 @@ public class ProjectController : ControllerBase
 
         return result.Match<IActionResult>(
             Ok,
-            (message, status) => NotFound(message)
+            this.HandleErrorResult
         );
     }
 }
