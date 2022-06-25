@@ -2,9 +2,10 @@ namespace API.Auth.Dtos;
 
 public class UserDto
 {
-    public UserDto(string username)
+    public UserDto(string username, int id)
     {
         Username = username;
+        Id = id;
     }
 
     public UserDto()
@@ -12,6 +13,7 @@ public class UserDto
     }
 
     public string Username { get; set; }
-
-    public static UserDto Of(User user) => new UserDto(user.Username);
+    public int Id { get; set; }
+    
+    public static UserDto Of(User user) => new UserDto(user.Username, user.Id);
 }

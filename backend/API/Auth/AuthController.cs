@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
         Result<User> registrationResult = await _authService.RegisterUser(registerUserDto);
 
         return registrationResult.Match(
-            user => Created($"{HttpContext.Request.Host}/user/{user.Id}", UserDto.Of(user)),
+            user => Created($"{HttpContext.Request.Host}/auth/{user.Id}", UserDto.Of(user)),
             this.HandleErrorResult);
     }
 
