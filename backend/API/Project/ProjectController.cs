@@ -1,15 +1,19 @@
+using System.Security.Claims;
+using API.Auth;
 using API.Project.Dto;
 using API.Result;
 using API.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Project;
 
 [ApiController]
-[Route(ROOT_URL)]
+[Authorize]
+[Route(RootUrl)]
 public class ProjectController : ControllerBase
 {
-    public const string ROOT_URL = "/project";
+    public const string RootUrl = "/project";
 
     private readonly IProjectService _projectService;
 
@@ -33,6 +37,10 @@ public class ProjectController : ControllerBase
     [HttpGet("{projectId}")]
     public async Task<IActionResult> GetProjectById(int projectId)
     {
+        // Make extension to ClaimsPrincipal to get id.
+        int clientId = Convert.ToInt32(HttpContext.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        
+        
         Result<Project> result = await _projectService.GetProjectById(projectId);
 
         return result.Match<IActionResult>(
