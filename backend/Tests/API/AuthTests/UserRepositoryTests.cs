@@ -1,5 +1,6 @@
 using System.Text;
-using API.Auth;
+using API.DataAccess;
+using API.Domain;
 using API.Optional;
 
 namespace Tests.API.UserTests;

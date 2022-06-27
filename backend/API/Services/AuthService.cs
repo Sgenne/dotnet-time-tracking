@@ -1,10 +1,12 @@
-using API.Auth.Cryptography;
-using API.Auth.Dtos;
+using API.DataAccess;
+using API.Domain;
+using API.Dtos.AuthDtos;
 using API.Optional;
 using API.Result;
-using static API.Auth.Cryptography.PasswordHandler;
+using API.Utils.Cryptography;
+using static API.Utils.Cryptography.PasswordHandler;
 
-namespace API.Auth;
+namespace API.Services;
 
 public class AuthService : IAuthService
 {

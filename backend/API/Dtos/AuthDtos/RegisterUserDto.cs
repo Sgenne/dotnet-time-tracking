@@ -1,4 +1,4 @@
-namespace API.Auth.Dtos;
+namespace API.Dtos.AuthDtos;
 
 public class RegisterUserDto
 {

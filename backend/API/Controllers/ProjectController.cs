@@ -1,13 +1,13 @@
-using System.Security.Claims;
-using API.Auth;
+using API.Domain;
+using API.Dtos.ProjectDtos;
 using API.Optional;
-using API.Project.Dto;
 using API.Result;
+using API.Services;
 using API.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Project;
+namespace API.Controllers;
 
 [ApiController]
 [Authorize]

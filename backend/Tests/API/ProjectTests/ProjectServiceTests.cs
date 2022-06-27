@@ -1,7 +1,9 @@
+using API.DataAccess;
+using API.Domain;
+using API.Dtos.ProjectDtos;
 using API.Optional;
-using API.Project;
-using API.Project.Dto;
 using API.Result;
+using API.Services;
 using Moq;
 
 namespace Tests.API.ProjectTests;

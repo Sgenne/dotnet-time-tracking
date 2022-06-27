@@ -1,7 +1,8 @@
-using API.Auth.Dtos;
+using API.Domain;
+using API.Dtos.AuthDtos;
 using API.Result;
 
-namespace API.Auth;
+namespace API.Services;
 
 public interface IAuthService
 {

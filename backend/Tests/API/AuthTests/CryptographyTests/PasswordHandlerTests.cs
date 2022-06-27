@@ -1,5 +1,5 @@
 using System.Text;
-using API.Auth.Cryptography;
+using API.Utils.Cryptography;
 
 namespace Tests.API.AuthTests.CryptographyTests;
 

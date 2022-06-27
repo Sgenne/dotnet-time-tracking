@@ -1,7 +1,8 @@
-using API.Project.Dto;
+using API.Domain;
+using API.Dtos.ProjectDtos;
 using API.Result;
 
-namespace API.Project;
+namespace API.Services;
 
 public interface IProjectService
 {

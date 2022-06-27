@@ -1,6 +1,7 @@
+using API.Domain;
 using API.Optional;
 
-namespace API.Project;
+namespace API.DataAccess;
 
 public interface IProjectRepository
 {

@@ -1,10 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using API.Auth;
+using API.Domain;
 using Microsoft.IdentityModel.Tokens;
 using Xunit.Abstractions;
-using TokenHandler = API.Auth.Cryptography.TokenHandler;
+using TokenHandler = API.Utils.Cryptography.TokenHandler;
 
 namespace Tests.API.AuthTests.CryptographyTests;
 
@@ -18,7 +18,7 @@ public class TokenHandlerTests
     }
 
     [Fact]
-    public void CreateToken()
+    public void CreateToken_TokenIsVerifiable()
     {
         User user = new User
         {

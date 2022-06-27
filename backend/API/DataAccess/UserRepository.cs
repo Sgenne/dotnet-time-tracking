@@ -1,6 +1,7 @@
+using API.Domain;
 using API.Optional;
 
-namespace API.Auth;
+namespace API.DataAccess;
 
 public class UserRepository : IUserRepository
 {

@@ -1,9 +1,11 @@
-using API.Auth.Dtos;
+using API.Domain;
+using API.Dtos.AuthDtos;
 using API.Result;
+using API.Services;
 using API.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Auth;
+namespace API.Controllers;
 
 [ApiController]
 [Route("auth")]

@@ -1,5 +1,3 @@
-using API.Auth;
-
 namespace API.Optional;
 
 public class Optional<T>

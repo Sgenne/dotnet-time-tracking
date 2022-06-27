@@ -1,9 +1,10 @@
-using API.Auth;
+using API.DataAccess;
+using API.Domain;
+using API.Dtos.ProjectDtos;
 using API.Optional;
-using API.Project.Dto;
 using API.Result;
 
-namespace API.Project;
+namespace API.Services;
 
 public class ProjectService : IProjectService
 {

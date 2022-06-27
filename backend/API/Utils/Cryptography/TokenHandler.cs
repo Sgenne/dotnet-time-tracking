@@ -1,9 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using API.Domain;
 using Microsoft.IdentityModel.Tokens;
 
-namespace API.Auth.Cryptography;
+namespace API.Utils.Cryptography;
 
 public static class TokenHandler
 {

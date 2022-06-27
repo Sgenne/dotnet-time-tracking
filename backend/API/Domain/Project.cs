@@ -1,4 +1,4 @@
-namespace API.Project;
+namespace API.Domain;
 
 public class Project
 {

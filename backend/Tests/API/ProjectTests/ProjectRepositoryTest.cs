@@ -1,5 +1,6 @@
+using API.DataAccess;
+using API.Domain;
 using API.Optional;
-using API.Project;
 using Xunit.Abstractions;
 
 namespace Tests.API.ProjectTests;

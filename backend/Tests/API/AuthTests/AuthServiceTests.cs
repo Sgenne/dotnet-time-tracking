@@ -1,7 +1,10 @@
-using API.Auth;
-using API.Auth.Dtos;
+using API.DataAccess;
+using API.Domain;
+using API.Dtos.AuthDtos;
 using API.Optional;
 using API.Result;
+using API.Services;
+using Microsoft.Extensions.Configuration;
 using Moq;
 
 namespace Tests.API.AuthTests;
@@ -21,6 +24,7 @@ public class AuthServiceTests
         };
 
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        Mock<IConfiguration> mockConfiguration = new Mock<IConfiguration>();
 
         mockRepository
             .Setup(m => m.GetUserByUsername(It.IsAny<string>()))
@@ -29,7 +33,7 @@ public class AuthServiceTests
                     Username = str
                 })
             );
-        AuthService authService = new AuthService(mockRepository.Object);
+        AuthService authService = new AuthService(mockRepository.Object, mockConfiguration.Object);
 
         Result<User> result = await authService.RegisterUser(registerUserDto);
 
@@ -54,7 +58,8 @@ public class AuthServiceTests
         };
 
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
-
+        Mock<IConfiguration> mockConfiguration = new Mock<IConfiguration>();
+        
         mockRepository
             .Setup(m => m.GetUserByUsername(It.IsAny<string>()))
             .ReturnsAsync((string str) => Optional<User>.Empty()
@@ -68,7 +73,7 @@ public class AuthServiceTests
                 return u;
             });
 
-        AuthService authService = new AuthService(mockRepository.Object);
+        AuthService authService = new AuthService(mockRepository.Object, mockConfiguration.Object);
 
         Result<User> result = await authService.RegisterUser(registerUserDto);
 

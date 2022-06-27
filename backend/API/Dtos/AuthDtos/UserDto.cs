@@ -1,4 +1,6 @@
-namespace API.Auth.Dtos;
+using API.Domain;
+
+namespace API.Dtos.AuthDtos;
 
 public class UserDto
 {
