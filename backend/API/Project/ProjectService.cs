@@ -1,3 +1,4 @@
+using API.Auth;
 using API.Optional;
 using API.Project.Dto;
 using API.Result;
@@ -36,5 +37,15 @@ public class ProjectService : IProjectService
             Result<Project>.Error($"No project with id {projectId} was found", Status.ResourceNotFound);
 
         return foundProject.Match(Result<Project>.Success, NoneHandler);
+    }
+
+    public async Task<bool> IsOwner(int userId, int projectId)
+    {
+        Optional<Project> optionalProject = await _projectRepository.GetProjectById(projectId);
+
+        return optionalProject.Match(
+            p => p.UserId == userId,
+            () => false
+        );
     }
 }

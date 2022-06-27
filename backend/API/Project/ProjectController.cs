@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using API.Auth;
+using API.Optional;
 using API.Project.Dto;
 using API.Result;
 using API.Utils;
@@ -25,6 +26,9 @@ public class ProjectController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
+        
+        // Add user id
+        
         Result<Project> result =
             await _projectService
                 .CreateProject(createProjectDto);
@@ -37,10 +41,22 @@ public class ProjectController : ControllerBase
     [HttpGet("{projectId}")]
     public async Task<IActionResult> GetProjectById(int projectId)
     {
-        // Make extension to ClaimsPrincipal to get id.
-        int clientId = Convert.ToInt32(HttpContext.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
-        
-        
+        Optional<int> optionalUserId = HttpContext.User.GetId();
+        if (optionalUserId.IsEmpty)
+        {
+            return BadRequest("The access token did not contain a user id.");
+        }
+
+        int userId = optionalUserId.Some();
+
+        bool isOwner = await _projectService.IsOwner(userId, projectId);
+
+        if (!isOwner)
+        {
+            return new ObjectResult("The user id does not match the owner of the specified project.")
+                { StatusCode = 403 };
+        }
+
         Result<Project> result = await _projectService.GetProjectById(projectId);
 
         return result.Match<IActionResult>(
