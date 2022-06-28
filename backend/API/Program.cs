@@ -2,11 +2,18 @@ using System.Text;
 using API.DataAccess;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services
+    .AddDbContext<DataContext>(
+        options => options
+            .UseSqlServer("name=ConnectionStrings:DefaultConnection")
+    );
 
 builder.Services.AddSingleton<IProjectRepository, ProjectRepository>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
