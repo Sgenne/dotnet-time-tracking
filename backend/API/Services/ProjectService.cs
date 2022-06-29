@@ -17,16 +17,21 @@ public class ProjectService : IProjectService
 
     public async Task<Result<Project>> CreateProject(CreateProjectDto createProjectDto)
     {
-        Project storedProject = await _projectRepository
+        //TODO - Validation
+
+        Result<Project> resultProject = await _projectRepository
             .AddProject(
                 new Project
                 {
                     Description = createProjectDto.Description,
-                    Title = createProjectDto.Title
+                    Title = createProjectDto.Title,
+                    UserId = createProjectDto.OwnerId,
                 });
 
-        return Result<Project>
-            .Success(storedProject, "", Status.Created);
+        return resultProject.Match(
+            p => Result<Project>.Success(p, "The project was created successfully.", Status.Created),
+            (s, status) => Result<Project>.Error("The project could not be created.", Status.Error)
+        );
     }
 
     public async Task<Result<Project>> GetProjectById(int projectId)
@@ -42,10 +47,18 @@ public class ProjectService : IProjectService
 
     public async Task<bool> IsOwner(int userId, int projectId)
     {
+        Console.WriteLine("userId: " + userId);
+        Console.WriteLine("projectId: " + projectId);
         Optional<Project> optionalProject = await _projectRepository.GetProjectById(projectId);
 
+
         return optionalProject.Match(
-            p => p.UserId == userId,
+            p =>
+            {
+                Console.WriteLine("HERE");
+                Console.WriteLine("p.UserId: " + p.UserId);
+                return p.UserId == userId;
+            },
             () => false
         );
     }

@@ -12,6 +12,7 @@ public static class ControllerExtensions
             Status.Unauthorized => controller.Unauthorized(message),
             Status.BadRequest => controller.BadRequest(message),
             Status.ResourceNotFound => controller.NotFound(message),
+            Status.Error => new ObjectResult(message) { StatusCode = 500 },
             _ => controller.Problem(message),
         };
 }

@@ -15,8 +15,8 @@ builder.Services
             .UseSqlServer("name=ConnectionStrings:DefaultConnection")
     );
 
-builder.Services.AddSingleton<IProjectRepository, ProjectRepository>();
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
