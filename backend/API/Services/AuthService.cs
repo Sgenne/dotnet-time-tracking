@@ -13,7 +13,7 @@ public class AuthService : IAuthService
     private const int PasswordSaltLength = 64;
 
     private readonly IUserRepository _userRepository;
-    private IConfiguration _configuration;
+    private readonly IConfiguration _configuration;
 
     public AuthService(IUserRepository userRepository, IConfiguration configuration)
     {
@@ -21,11 +21,6 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    /// <summary>
-    /// Creates and stores a user object representing a new user.
-    /// </summary>
-    /// <param name="dto">The object containing the username and password of the user to be registered.</param>
-    /// <returns>A Result object containing the registered User object or an error message.</returns>
     public async Task<Result<User>> RegisterUser(RegisterUserDto dto)
     {
         string username = dto.Username;
@@ -45,27 +40,24 @@ public class AuthService : IAuthService
         byte[] passwordSalt = CreatePasswordSalt(PasswordSaltLength);
         byte[] passwordHash = ComputePasswordHash(password, passwordSalt);
 
-        User registeredUser = await _userRepository.AddUser(new User
+        Result<User> addUserResult = await _userRepository.AddUser(new User
         {
             Username = username,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
         });
 
-        return Result<User>
-            .Success(registeredUser, "New user added successfully.", Status.Created);
+        return addUserResult.Match(
+            u => Result<User>.Success(u, "User registered successfully.", Status.Created),
+            ((msg, status) => Result<User>.Error("The user could not be registered.", Status.Error))
+        );
     }
 
-    /// <summary>
-    /// Signs a user in by generating and returning an access token
-    /// </summary>
-    /// <param name="loginDto">The object containing the username and password of the user.</param>
-    /// <returns>The created access token.</returns>
     public async Task<Result<string>> Login(LoginDto loginDto)
     {
         string username = loginDto.Username;
         string password = loginDto.Password;
-        
+
         Optional<User> optionalUser = await _userRepository.GetUserByUsername(username);
 
         if (optionalUser.IsEmpty)

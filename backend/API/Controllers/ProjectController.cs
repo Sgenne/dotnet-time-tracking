@@ -26,9 +26,6 @@ public class ProjectController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
-        
-        // Add user id
-        
         Result<Project> result =
             await _projectService
                 .CreateProject(createProjectDto);
