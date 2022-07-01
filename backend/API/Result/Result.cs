@@ -18,16 +18,9 @@ public class Result<T>
 
     public TU Match<TU>(Func<T, TU> successHandler, Func<string, Status, TU> errorHandler)
     {
-        if (_success && _value != null)
-        {
-            return successHandler(_value);
-        }
-
-        return errorHandler(Message, Status);
-
-        // return _success && _value != null
-        //     ? successHandler(_value)
-        //     : errorHandler(Message, Status);
+        return _success && _value != null
+            ? successHandler(_value)
+            : errorHandler(Message, Status);
     }
 
     public static Result<T> Success(T value) => new(value, Status.Ok, "", true);

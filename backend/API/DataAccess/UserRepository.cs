@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
     {
         _dataContext = dataContext;
     }
-    
+
     public async Task<Result<User>> AddUser(User user)
     {
         try
@@ -28,9 +28,9 @@ public class UserRepository : IUserRepository
             return Result<User>.Error(e.Message, Status.Error);
         }
     }
-    
+
     public Task<Optional<User>> GetUserById(int userId) => GetUser(u => u.Id == userId);
-    
+
     public Task<Optional<User>> GetUserByUsername(string username) => GetUser(u => u.Username == username);
 
     private async Task<Optional<User>> GetUser(Expression<Func<User, bool>> predicate)
