@@ -1,4 +1,4 @@
-using API.Result;
+using API.Utils.Result;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Utils;

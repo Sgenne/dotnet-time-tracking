@@ -1,9 +1,9 @@
 using API.DataAccess;
 using API.Domain;
 using API.Dtos.AuthDtos;
-using API.Optional;
-using API.Result;
 using API.Utils.Cryptography;
+using API.Utils.Optional;
+using API.Utils.Result;
 using static API.Utils.Cryptography.PasswordHandler;
 
 namespace API.Services;

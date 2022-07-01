@@ -1,7 +1,7 @@
 using System.Text;
 using API.Utils.Cryptography;
 
-namespace Tests.API.AuthTests.CryptographyTests;
+namespace Tests.Utils.Cryptography;
 
 public class PasswordHandlerTests
 {
@@ -13,7 +13,7 @@ public class PasswordHandlerTests
         byte[] hashedPassword = PasswordHandler.ComputePasswordHash(password, passwordSalt);
 
         bool passwordIsValid = PasswordHandler.VerifyPassword(password, passwordSalt, hashedPassword);
-        
+
         Assert.True(passwordIsValid);
     }
 }

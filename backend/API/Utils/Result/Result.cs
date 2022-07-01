@@ -1,4 +1,4 @@
-namespace API.Result;
+namespace API.Utils.Result;
 
 public class Result<T>
 {

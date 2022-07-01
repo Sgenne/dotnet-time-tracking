@@ -1,16 +1,16 @@
 using API.Domain;
 using API.Dtos.AuthDtos;
-using API.Result;
+using API.Utils.Result;
 
 namespace API.Validation;
 
 public static class UserValidation
 {
-    public const int MinUsernameLength = 3;
-    public const int MaxUsernameLength = 32;
+    private const int MinUsernameLength = 3;
+    private const int MaxUsernameLength = 32;
 
-    public const int MinPasswordLength = 5;
-    public const int MaxPasswordLength = 64;
+    private const int MinPasswordLength = 5;
+    private const int MaxPasswordLength = 64;
 
     /// <summary>
     /// Validates the content of the RegisterUserDto.

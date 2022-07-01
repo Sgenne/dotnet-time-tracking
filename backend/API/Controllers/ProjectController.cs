@@ -1,9 +1,9 @@
 using API.Domain;
 using API.Dtos.ProjectDtos;
-using API.Optional;
-using API.Result;
 using API.Services;
 using API.Utils;
+using API.Utils.Optional;
+using API.Utils.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

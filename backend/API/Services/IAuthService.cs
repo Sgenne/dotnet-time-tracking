@@ -1,6 +1,6 @@
 using API.Domain;
 using API.Dtos.AuthDtos;
-using API.Result;
+using API.Utils.Result;
 
 namespace API.Services;
 

@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Xunit.Abstractions;
 using TokenHandler = API.Utils.Cryptography.TokenHandler;
 
-namespace Tests.API.AuthTests.CryptographyTests;
+namespace Tests.Utils.Cryptography;
 
 public class TokenHandlerTests
 {

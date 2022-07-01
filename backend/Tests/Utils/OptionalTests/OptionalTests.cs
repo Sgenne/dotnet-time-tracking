@@ -1,6 +1,6 @@
-using API.Optional;
+using API.Utils.Optional;
 
-namespace Tests.API.OptionalTests;
+namespace Tests.Utils.OptionalTests;
 
 public class OptionalTests
 {

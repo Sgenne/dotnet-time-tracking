@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using API.Optional;
+using API.Utils.Optional;
 
 namespace API.Utils;
 

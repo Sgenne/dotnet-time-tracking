@@ -1,12 +1,12 @@
 using API.DataAccess;
 using API.Domain;
 using API.Dtos.ProjectDtos;
-using API.Optional;
-using API.Result;
 using API.Services;
+using API.Utils.Optional;
+using API.Utils.Result;
 using Moq;
 
-namespace Tests.API.ProjectTests;
+namespace Tests.Services;
 
 public class ProjectServiceTests
 {
@@ -21,7 +21,7 @@ public class ProjectServiceTests
             .ReturnsAsync((Project p) =>
             {
                 p.Id = newProjectId;
-                return p;
+                return Result<Project>.Success(p);
             });
 
 

@@ -1,4 +1,4 @@
-namespace API.Optional;
+namespace API.Utils.Optional;
 
 public class Optional<T>
 {

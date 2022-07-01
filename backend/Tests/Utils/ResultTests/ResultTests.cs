@@ -1,6 +1,6 @@
-using API.Result;
+using API.Utils.Result;
 
-namespace Tests.API.ResultTests;
+namespace Tests.Utils.ResultTests;
 
 public class ResultTests
 {

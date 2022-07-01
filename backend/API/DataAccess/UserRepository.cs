@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using API.Domain;
-using API.Optional;
-using API.Result;
+using API.Utils.Optional;
+using API.Utils.Result;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.DataAccess;

@@ -1,13 +1,13 @@
 using API.DataAccess;
 using API.Domain;
 using API.Dtos.AuthDtos;
-using API.Optional;
-using API.Result;
 using API.Services;
+using API.Utils.Optional;
+using API.Utils.Result;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
-namespace Tests.API.AuthTests;
+namespace Tests.Services;
 
 public class AuthServiceTests
 {
@@ -59,7 +59,7 @@ public class AuthServiceTests
 
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
         Mock<IConfiguration> mockConfiguration = new Mock<IConfiguration>();
-        
+
         mockRepository
             .Setup(m => m.GetUserByUsername(It.IsAny<string>()))
             .ReturnsAsync((string str) => Optional<User>.Empty()
@@ -70,7 +70,8 @@ public class AuthServiceTests
             .ReturnsAsync((User u) =>
             {
                 u.Id = 1;
-                return u;
+                return Result<User>
+                    .Success(u);
             });
 
         AuthService authService = new AuthService(mockRepository.Object, mockConfiguration.Object);

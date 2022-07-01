@@ -1,6 +1,6 @@
 using API.Domain;
-using API.Optional;
-using API.Result;
+using API.Utils.Optional;
+using API.Utils.Result;
 
 namespace API.DataAccess;
 
