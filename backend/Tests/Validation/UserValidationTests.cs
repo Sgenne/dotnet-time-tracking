@@ -11,8 +11,8 @@ public class UserValidationTests
     [InlineData("abc", "1234567890123456789012345678901212345678901234567890123456789012")]
     [InlineData("abcskjdfhkjhsdfkjshdfkjhsdkfkals", "adkgk")]
     [InlineData("abcskjdfhkjhsdfkjshdfkjhsdkfkals", "1234567890123456789012345678901212345678901234567890123456789012")]
-    [InlineData("  valid   ", "password         ")]
-    [InlineData(" i     i ", "dingus")]
+    [InlineData("valid", "password")]
+    [InlineData("iii", "dingus")]
     public void ValidateRegisterUserDto_Valid(string username, string password)
     {
         RegisterUserDto registerUserDto = new RegisterUserDto
@@ -40,7 +40,8 @@ public class UserValidationTests
     [InlineData("ab", "abcde")]
     [InlineData("abc", "12345267890123456789012345678901212345678901234567890123456789012")]
     [InlineData("abcskjdfhkjhsdfkjshdfkjhsdkfkalsa", "adkgk")]
-    [InlineData("abcskjdfhkjhsdfkjshdfkjhsdkfkals", "1l234567890123456789012345678901212345678901234567890123456789012")]
+    [InlineData("abcskjdfhkjhsdfkjshdfkjhsdkfkals",
+        "1l234567890123456789012345678901212345678901234567890123456789012")]
     [InlineData("  ii   ", "password         ")]
     [InlineData(" i     i ", "   ding     ")]
     public void ValidateRegisterUserDto_Invalid(string username, string password)
@@ -56,23 +57,65 @@ public class UserValidationTests
         Assert.Equal(Status.BadRequest, validationResult.Status);
     }
 
-    public void ValidateUsername_Valid()
+    [Theory]
+    [InlineData("abcde")]
+    [InlineData("a¤a")]
+    [InlineData("12345")]
+    [InlineData("abcskjdfhk!hsdf#¤%hdf!jvkdkfkwls")]
+    public void ValidateUsername_Valid(string username)
     {
-        throw new NotImplementedException();
+        Result<string> validationResult = UserValidation.ValidateUsername(username);
+        Assert.Equal(Status.Ok, validationResult.Status);
     }
 
-    public void ValidateUsername_Invalid()
+    [Theory]
+    [InlineData("as")]
+    [InlineData(" af ")]
+    [InlineData("a   a")]
+    [InlineData("abcskjdfhk!hsdfkj2hdfkj  dkfk ls")]
+    [InlineData("abcskjdfhkjhsdfkjshdfkjhsdkfkalsa")]
+    [InlineData("     abcde     ")]
+    public void ValidateUsername_Invalid(string username)
     {
-        throw new NotImplementedException();
+        Result<string> validationResult = UserValidation.ValidateUsername(username);
+        Assert.Equal(Status.BadRequest, validationResult.Status);
     }
 
-    public void ValidatePassword_Valid()
+    [Theory]
+    [InlineData("passw¤rd")]
+    [InlineData("12345")]
+    [InlineData("!#¤%&")]
+    [InlineData("2345267890123456789012345678901212345678901234567890123456789012")]
+    public void ValidatePassword_Valid(string password)
     {
-        throw new NotImplementedException();
+        Result<string> validationResult = UserValidation.ValidatePassword(password);
+        Assert.Equal(Status.Ok, validationResult.Status);
     }
 
-    public void ValidatePassword_Invalid()
+    [Theory]
+    [InlineData("pass word")]
+    [InlineData("1234")]
+    [InlineData("23452678901234567890123456789012123456789012345678901234567890122")]
+    public void ValidatePassword_Invalid(string password)
     {
-        throw new NotImplementedException();
+        Result<string> validationResult = UserValidation.ValidatePassword(password);
+        Assert.Equal(Status.BadRequest, validationResult.Status);
+    }
+
+    [Fact]
+    public void ValidatePassword_ValidPassword_PasswordNotChanged()
+    {
+
+        string password = "password";
+        
+        Result<string> validationResult = UserValidation.ValidateUsername(password);
+
+        string resultPassword = validationResult.Match(
+            p => p,
+            (_, _) => throw new Exception("Wrong handler called.")
+        );
+        
+        Assert.Equal(password, resultPassword);
+        
     }
 }

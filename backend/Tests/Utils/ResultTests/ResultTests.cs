@@ -31,4 +31,30 @@ public class ResultTests
         result0.Match(SuccessHandler, ErrorHandler);
         result1.Match(SuccessHandler, ErrorHandler);
     }
+
+    [Fact]
+    public void GetContained_Success()
+    {
+        throw new NotImplementedException();
+    }
+    
+    [Fact]
+    public void GetContained_Error()
+    {
+        throw new NotImplementedException();
+    }
+    
+    [Fact]
+    public void HandleSuccess_Success()
+    {
+        throw new NotImplementedException();
+    }
+    
+    [Fact]
+    public void HandleSuccess_Error()
+    {
+        throw new NotImplementedException();
+    }
+
+
 }

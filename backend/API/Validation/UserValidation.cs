@@ -12,6 +12,8 @@ public static class UserValidation
     private const int MinPasswordLength = 5;
     private const int MaxPasswordLength = 64;
 
+    private static char[] IllegalChars = { ' ' };
+
     /// <summary>
     /// Validates the content of the RegisterUserDto.
     /// </summary>
@@ -73,20 +75,25 @@ public static class UserValidation
             return Result<string>.Error($"No {fieldName} was given.", Status.BadRequest);
         }
 
-        string trimmedValue = value.Trim();
+        foreach (char illegalChar in IllegalChars)
+        {
+            if (value.Contains(illegalChar))
+                return Result<string>.Error($"The {fieldName} may not contain \"{illegalChar}\".", 
+                    Status.BadRequest);
+        }
 
-        if (trimmedValue.Length < minLength)
+        if (value.Length < minLength)
         {
             return Result<string>.Error($"The {fieldName} cannot be shorter than {minLength} characters.",
                 Status.BadRequest);
         }
 
-        if (trimmedValue.Length > maxLength)
+        if (value.Length > maxLength)
         {
             return Result<string>.Error($"The {fieldName} cannot be longer than {maxLength} characters.",
                 Status.BadRequest);
         }
 
-        return Result<string>.Success(trimmedValue);
+        return Result<string>.Success(value);
     }
 }
