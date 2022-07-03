@@ -6,6 +6,18 @@ namespace API.Validation;
 
 public static class UserValidation
 {
+    private class UsernamePassword
+    {
+        public string Username { get; }
+        public string Password { get; }
+
+        public UsernamePassword(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
+    }
+
     private const int MinUsernameLength = 3;
     private const int MaxUsernameLength = 32;
 
@@ -22,27 +34,56 @@ public static class UserValidation
     /// object will have status Ok. Otherwise, it will have status BadRequest.</returns>
     public static Result<RegisterUserDto> ValidateRegisterUserDto(RegisterUserDto dto)
     {
-        Result<string> usernameResult = ValidateUsername(dto.Username);
-        Result<string> passwordResult = ValidatePassword(dto.Password);
+        UsernamePassword usernamePassword = new UsernamePassword(dto.Username, dto.Password);
+
+        Result<UsernamePassword> validationResult = ValidateUsernamePassword(usernamePassword);
+
+        return validationResult.Match(
+            r => Result<RegisterUserDto>.Success(dto),
+            ((s, _) => Result<RegisterUserDto>.Error(validationResult.Message, Status.BadRequest))
+        );
+    }
+
+    /// <summary>
+    /// Validates the content of the LoginDto.
+    /// </summary>
+    /// <param name="dto">The dto to be validated.</param>
+    /// <returns>A Result object describing the outcome of the validation. If the argument is valid, then the Result
+    /// object will have status Ok. Otherwise, it will have status BadRequest.</returns>
+    public static Result<LoginDto> ValidateLoginDto(LoginDto dto)
+    {
+        UsernamePassword usernamePassword = new UsernamePassword(dto.Username, dto.Password);
+
+        Result<UsernamePassword> validationResult = ValidateUsernamePassword(usernamePassword);
+
+        return validationResult.Match(
+            r => Result<LoginDto>.Success(dto),
+            ((s, _) => Result<LoginDto>.Error(validationResult.Message, Status.BadRequest))
+        );
+    }
+
+    private static Result<UsernamePassword> ValidateUsernamePassword(UsernamePassword usernamePassword)
+    {
+        string username = usernamePassword.Username;
+        string password = usernamePassword.Password;
+
+        Result<string> usernameResult = ValidateUsername(username);
+        Result<string> passwordResult = ValidatePassword(password);
 
         if (usernameResult.Status != Status.Ok)
         {
-            return Result<RegisterUserDto>.Error(usernameResult.Message, Status.BadRequest);
+            return Result<UsernamePassword>
+                .Error(usernameResult.Message, Status.BadRequest);
         }
 
         if (passwordResult.Status != Status.Ok)
         {
-            return Result<RegisterUserDto>.Error(passwordResult.Message, Status.BadRequest);
+            return Result<UsernamePassword>
+                .Error(passwordResult.Message, Status.BadRequest);
         }
 
-        string validUsername = usernameResult.GetContained();
-        string validPassword = passwordResult.GetContained();
-
-        return Result<RegisterUserDto>.Success(new RegisterUserDto
-        {
-            Username = validUsername,
-            Password = validPassword
-        });
+        return Result<UsernamePassword>
+            .Success(new UsernamePassword(username, password));
     }
 
     /// <summary>

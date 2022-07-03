@@ -4,6 +4,7 @@ using API.Dtos.AuthDtos;
 using API.Utils.Cryptography;
 using API.Utils.Optional;
 using API.Utils.Result;
+using API.Validation;
 using static API.Utils.Cryptography.PasswordHandler;
 
 namespace API.Services;
@@ -21,11 +22,24 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <returns></returns>
     public async Task<Result<User>> RegisterUser(RegisterUserDto dto)
     {
         string username = dto.Username;
         string password = dto.Password;
 
+        Result<RegisterUserDto> dtoValidationResult = UserValidation.ValidateRegisterUserDto(dto);
+
+        if (dtoValidationResult.Status != Status.Ok)
+        {
+            return Result<User>
+                .Error(dtoValidationResult.Message, Status.BadRequest);
+        }
+        
         Optional<User> existingUser = await _userRepository
             .GetUserByUsername(username);
 
@@ -49,14 +63,26 @@ public class AuthService : IAuthService
 
         return addUserResult.Match(
             u => Result<User>.Success(u, "User registered successfully.", Status.Created),
-            ((msg, status) => Result<User>.Error("The user could not be registered.", Status.Error))
+            ((_, _) => Result<User>.Error("The user could not be registered.", Status.Error))
         );
     }
 
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="loginDto"></param>
+    /// <returns></returns>
     public async Task<Result<string>> Login(LoginDto loginDto)
     {
         string username = loginDto.Username;
         string password = loginDto.Password;
+
+        Result<LoginDto> validationResult = UserValidation.ValidateLoginDto(loginDto);
+
+        if (validationResult.Status != Status.Ok)
+        {
+            return Result<string>.Error(validationResult.Message, Status.Forbidden);
+        }
 
         Optional<User> optionalUser = await _userRepository.GetUserByUsername(username);
 
