@@ -24,7 +24,7 @@ public class ResultTests
         Result<int> result1 = Result<int>.Success(1);
 
         int SuccessHandler(int i) => i;
-        
+
         int ErrorHandler(string _, Status __) =>
             throw new Exception("ErrorHandler was used when calling Match on a Success Result");
 
@@ -35,26 +35,42 @@ public class ResultTests
     [Fact]
     public void GetContained_Success()
     {
-        throw new NotImplementedException();
+        int value = 1;
+
+        Result<int> result = Result<int>.Success(value);
+        int resultInt = result.GetContained();
+
+        Assert.Equal(value, resultInt);
     }
-    
+
     [Fact]
     public void GetContained_Error()
     {
-        throw new NotImplementedException();
+        Result<int> result = Result<int>.Error("message", Status.Error);
+
+        Assert.Throws<InvalidOperationException>(
+            () => result.GetContained()
+        );
     }
-    
+
     [Fact]
     public void HandleSuccess_Success()
     {
-        throw new NotImplementedException();
+        int value = 1;
+
+        Result<int> result = Result<int>.Success(value);
+        int resultInt = result.HandleSuccess(v => v);
+
+        Assert.Equal(value, resultInt);
     }
-    
+
     [Fact]
     public void HandleSuccess_Error()
     {
-        throw new NotImplementedException();
+        Result<int> result = Result<int>.Error("message", Status.Error);
+        
+        Assert.Throws<InvalidOperationException>(
+            () => result.HandleSuccess(v => v)
+        );
     }
-
-
 }

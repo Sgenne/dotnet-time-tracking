@@ -13,4 +13,14 @@ public class OptionalTests
             () => optional.Some(v => v)
         );
     }
+
+    [Fact]
+    public void Some_NonEmpty()
+    {
+        string value = "value";
+
+        Optional<string> optional = Optional<string>.Of(value);
+
+        Assert.Equal(value, optional.Some());
+    }
 }

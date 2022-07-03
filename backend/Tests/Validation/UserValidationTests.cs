@@ -105,17 +105,25 @@ public class UserValidationTests
     [Fact]
     public void ValidatePassword_ValidPassword_PasswordNotChanged()
     {
-
         string password = "password";
-        
-        Result<string> validationResult = UserValidation.ValidateUsername(password);
+
+        Result<string> validationResult = UserValidation.ValidatePassword(password);
 
         string resultPassword = validationResult.Match(
             p => p,
             (_, _) => throw new Exception("Wrong handler called.")
         );
-        
+
         Assert.Equal(password, resultPassword);
-        
+    }
+
+    [Fact]
+    public void ValidateUsername_UsernameIsNull()
+    {
+        string username = null;
+
+        Result<string> validationResult = UserValidation.ValidateUsername(username);
+
+        Assert.Equal(Status.BadRequest, validationResult.Status);
     }
 }

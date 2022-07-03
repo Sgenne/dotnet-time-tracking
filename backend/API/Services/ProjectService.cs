@@ -53,12 +53,7 @@ public class ProjectService : IProjectService
 
 
         return optionalProject.Match(
-            p =>
-            {
-                Console.WriteLine("HERE");
-                Console.WriteLine("p.UserId: " + p.UserId);
-                return p.UserId == userId;
-            },
+            p => p.UserId == userId,
             () => false
         );
     }

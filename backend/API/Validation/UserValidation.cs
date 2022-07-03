@@ -35,14 +35,8 @@ public static class UserValidation
             return Result<RegisterUserDto>.Error(passwordResult.Message, Status.BadRequest);
         }
 
-        string validUsername = usernameResult.Match(
-            u => u,
-            (_, _) => "");
-
-        string validPassword = passwordResult.Match(
-            p => p,
-            (_, _) => ""
-        );
+        string validUsername = usernameResult.GetContained();
+        string validPassword = passwordResult.GetContained();
 
         return Result<RegisterUserDto>.Success(new RegisterUserDto
         {
@@ -78,7 +72,7 @@ public static class UserValidation
         foreach (char illegalChar in IllegalChars)
         {
             if (value.Contains(illegalChar))
-                return Result<string>.Error($"The {fieldName} may not contain \"{illegalChar}\".", 
+                return Result<string>.Error($"The {fieldName} may not contain \"{illegalChar}\".",
                     Status.BadRequest);
         }
 
