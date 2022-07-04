@@ -23,6 +23,13 @@ public class ProjectController : ControllerBase
         _projectService = projectService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetCreatedProjects()
+    {
+        throw new NotImplementedException();
+    }
+
+
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
@@ -61,4 +68,6 @@ public class ProjectController : ControllerBase
             this.HandleErrorResult
         );
     }
+    
+    
 }

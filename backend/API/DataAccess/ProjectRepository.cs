@@ -43,8 +43,6 @@ public class ProjectRepository : IProjectRepository
         Project? foundProject = await _dataContext.Projects
             .FirstOrDefaultAsync(p => p.Id == projectId);
 
-        Console.WriteLine("foundProject: " + foundProject);
-        
         if (foundProject == null)
         {
             return Optional<Project>.Empty();
@@ -53,4 +51,12 @@ public class ProjectRepository : IProjectRepository
         return Optional<Project>
             .Of(foundProject);
     }
+
+    /// <summary>
+    /// Returns all projects created by the user with the given userId.
+    /// </summary>
+    /// <param name="userId">The userId of the creator of the returned projects.</param>
+    /// <returns>The found projects.</returns>
+    public async Task<IEnumerable<Project>> GetProjectsByUserId(int userId) =>
+        _dataContext.Projects.Where(p => p.UserId == userId);
 }

@@ -19,4 +19,12 @@ public interface IProjectRepository
     /// <param name="projectId">The ID of the Project to be returned.</param>
     /// <returns>An Optional that may contain a found project.</returns>
     Task<Optional<Project>> GetProjectById(int projectId);
+
+    /// <summary>
+    /// Returns all projects created by the user with the given userId.
+    /// </summary>
+    /// <param name="userId">The userId of the creator of the returned projects.</param>
+    /// <returns>The found projects.</returns>
+    Task<IEnumerable<Project>> GetProjectsByUserId(int userId);
+
 }

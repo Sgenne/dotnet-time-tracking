@@ -16,7 +16,7 @@ public interface IAuthService
     /// <summary>
     /// Signs a user in by generating and returning an access token
     /// </summary>
-    /// <param name="loginDto">The object containing the username and password of the user.</param>
+    /// <param name="dto">The object containing the username and password of the user.</param>
     /// <returns>The created access token.</returns>
-    Task<Result<string>> Login(LoginDto loginDto);
+    Task<Result<string>> Login(LoginDto dto);
 }

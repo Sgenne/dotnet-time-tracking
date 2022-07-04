@@ -21,12 +21,11 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
         _configuration = configuration;
     }
-
     /// <summary>
-    /// TODO
+    /// Signs a user in by generating and returning an access token
     /// </summary>
-    /// <param name="dto"></param>
-    /// <returns></returns>
+    /// <param name="dto">The object containing the username and password of the user.</param>
+    /// <returns>The created access token.</returns>
     public async Task<Result<User>> RegisterUser(RegisterUserDto dto)
     {
         string username = dto.Username;
@@ -39,7 +38,7 @@ public class AuthService : IAuthService
             return Result<User>
                 .Error(dtoValidationResult.Message, Status.BadRequest);
         }
-        
+
         Optional<User> existingUser = await _userRepository
             .GetUserByUsername(username);
 
@@ -68,16 +67,16 @@ public class AuthService : IAuthService
     }
 
     /// <summary>
-    /// TODO
+    /// Validates the given username and password. If the credentials are valid, then a JWT is created and returned.
     /// </summary>
-    /// <param name="loginDto"></param>
-    /// <returns></returns>
-    public async Task<Result<string>> Login(LoginDto loginDto)
+    /// <param name="dto">Contains the user information used when creating the token.</param>
+    /// <returns>A Result object that contains the created token if the given credentials were valid.</returns>
+    public async Task<Result<string>> Login(LoginDto dto)
     {
-        string username = loginDto.Username;
-        string password = loginDto.Password;
+        string username = dto.Username;
+        string password = dto.Password;
 
-        Result<LoginDto> validationResult = UserValidation.ValidateLoginDto(loginDto);
+        Result<LoginDto> validationResult = UserValidation.ValidateLoginDto(dto);
 
         if (validationResult.Status != Status.Ok)
         {
