@@ -15,4 +15,7 @@ public static class ControllerExtensions
             Status.Error => new ObjectResult(message) { StatusCode = 500 },
             _ => controller.Problem(message),
         };
+
+    public static IActionResult NoUserIdResponse(this ControllerBase controller) =>
+        controller.BadRequest("The access token did not contain a user id.");
 }

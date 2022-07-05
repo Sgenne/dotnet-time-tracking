@@ -26,7 +26,15 @@ public class ProjectController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetCreatedProjects()
     {
-        throw new NotImplementedException();
+        Optional<int> optionalUserId = HttpContext.User.GetId();
+
+        if (optionalUserId.IsEmpty) return this.NoUserIdResponse();
+
+        int userId = optionalUserId.Some();
+
+        IEnumerable<Project> userCreatedProjects = await _projectService.GetProjectsByUserId(userId);
+
+        return Ok(userCreatedProjects);
     }
 
 
@@ -48,7 +56,7 @@ public class ProjectController : ControllerBase
         Optional<int> optionalUserId = HttpContext.User.GetId();
         if (optionalUserId.IsEmpty)
         {
-            return BadRequest("The access token did not contain a user id.");
+            return this.NoUserIdResponse();
         }
 
         int userId = optionalUserId.Some();
@@ -68,6 +76,4 @@ public class ProjectController : ControllerBase
             this.HandleErrorResult
         );
     }
-    
-    
 }
