@@ -6,7 +6,6 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <h1>Index</h1>
-      <Link href={"/login"}>login</Link>
     </div>
   );
 };
