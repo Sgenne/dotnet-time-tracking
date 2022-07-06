@@ -1,6 +1,5 @@
-import { createContext, ReactElement, useState } from "react";
+import { createContext, ReactElement, useContext, useState } from "react";
 import User from "../domain/User";
-
 
 export interface AuthContextState {
   /**
@@ -52,7 +51,7 @@ const defaultAuthContextState: AuthContextState = {
 
 const context = createContext<AuthContextState>(defaultAuthContextState);
 
-export const AuthContext = ({ children }: AuthContextProps) => {
+export const AuthContextProvider = ({ children }: AuthContextProps) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [signedInUser, setSignedInUser] = useState<User>();
   const [accessToken, setAccessToken] = useState<string>();
@@ -93,5 +92,7 @@ export const AuthContext = ({ children }: AuthContextProps) => {
 
   return <context.Provider value={state}>{children}</context.Provider>;
 };
+
+export const useAuthContext = () => useContext(context);
 
 const NotSignedInError = () => new Error("No user is currently signed in.");
