@@ -2,13 +2,21 @@ import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { AuthContextProvider } from "../auth/AuthContext";
 import SignInGuard from "../auth/SignInGuard";
+import PageWithLayout from "../types/PageWithLayout";
+import { ReactElement } from "react";
 
-function App({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: PageWithLayout;
+};
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+  const content: ReactElement = getLayout(<Component {...pageProps} />);
+
   return (
     <AuthContextProvider>
-      <SignInGuard>
-        <Component {...pageProps} />
-      </SignInGuard>
+      <SignInGuard>{content}</SignInGuard>
     </AuthContextProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useContext, useState } from "react";
+import { createContext, ReactElement, ReactNode, useContext, useState } from "react";
 import User from "../domain/User";
 
 export interface AuthContextState {

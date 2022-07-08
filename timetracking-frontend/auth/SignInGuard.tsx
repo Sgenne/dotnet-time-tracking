@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ReactElement, useEffect } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import { useAuthContext } from "./AuthContext";
 
 const SignInGuard = ({ children }: { children: ReactElement }) => {
