@@ -1,16 +1,9 @@
-import { ChangeEventHandler } from "react";
-import { getInputChangeHandler } from "../../../utils/adapters/InputElementChangeAdapter";
+import styles from "../../../styles/utils/input/ClearTextInput.module.css";
+import TextInputProps from "../../../types/InputProps";
+import TextInput from "./TextInput";
 
-export interface ClearTextInputProps {
-  onChange: (value: string) => void;
-  value: string;
-}
-
-const ClearTextInput = ({ onChange, value }: ClearTextInputProps) => {
-  const changeHandler: ChangeEventHandler<HTMLInputElement> =
-    getInputChangeHandler(onChange);
-
-  return <input value={value} onChange={changeHandler} />;
-};
+const ClearTextInput = (props: TextInputProps) => (
+  <TextInput {...props} styles={styles} />
+);
 
 export default ClearTextInput;
