@@ -1,7 +1,7 @@
 import axios from "axios";
 import Result from "../utils/Result";
 import { LOGIN_URL } from "../utils/Urls";
-import { AccessToken } from "./types/AccessToken";
+import { AccessToken } from "../types/AccessToken";
 
 export const Login = async (
   username: string,
