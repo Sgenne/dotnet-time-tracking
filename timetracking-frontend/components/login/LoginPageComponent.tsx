@@ -2,15 +2,18 @@ import styles from "../../styles/login/LoginPageComponent.module.css";
 import ControlledStateHandler from "../../types/ControlledStateHandler";
 import ClearTextInput from "../utils/input/ClearTextInput";
 import HiddenTextInput from "../utils/input/HiddenTextInput";
+import PrimaryButton from "../utils/PrimaryButton";
 
 export interface LoginPageComponentProps {
   usernameHandler: ControlledStateHandler<string>;
   passwordHandler: ControlledStateHandler<string>;
+  onSubmit: () => void;
 }
 
 const LoginPageComponent = ({
   usernameHandler,
   passwordHandler,
+  onSubmit,
 }: LoginPageComponentProps) => {
   const { changeHandler: usernameChangeHandler, value: usernameValue } =
     usernameHandler;
@@ -33,6 +36,9 @@ const LoginPageComponent = ({
           onChange={passwordChangeHandler}
           value={passwordValue}
         />
+      </div>
+      <div className={styles["submit-container"]}>
+        <PrimaryButton onClick={onSubmit}>Login</PrimaryButton>
       </div>
     </div>
   );
