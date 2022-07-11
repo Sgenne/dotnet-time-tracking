@@ -1,5 +1,7 @@
 using API.Domain;
-using API.Dtos.AuthDtos;
+using API.Dtos;
+using API.Requests.AuthRequests;
+using API.Responses.AuthResponses;
 using API.Services;
 using API.Utils;
 using API.Utils.Result;
@@ -21,17 +23,17 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserDto registerUserDto)
     {
-        Result<User> registrationResult = await _authService.RegisterUser(registerUserDto);
+        Result<UserDto> registrationResult = await _authService.RegisterUser(registerUserDto);
 
         return registrationResult.Match(
-            user => Created($"{HttpContext.Request.Host}/auth/{user.Id}", UserDto.Of(user)),
+            user => Created($"{HttpContext.Request.Host}/auth/{user.Id}", user),
             this.HandleErrorResult);
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
-        Result<string> loginResult = await _authService.Login(loginDto);
+        Result<LoginResponse> loginResult = await _authService.Login(loginDto);
 
         return loginResult.Match(
             Ok,

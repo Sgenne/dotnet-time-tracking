@@ -1,5 +1,5 @@
 using API.Domain;
-using API.Dtos.AuthDtos;
+using API.Requests.AuthRequests;
 using API.Utils.Result;
 
 namespace API.Validation;

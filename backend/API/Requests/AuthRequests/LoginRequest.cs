@@ -1,4 +1,4 @@
-namespace API.Dtos.AuthDtos;
+namespace API.Requests.AuthRequests;
 
 public class LoginDto
 {

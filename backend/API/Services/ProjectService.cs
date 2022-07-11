@@ -1,6 +1,8 @@
+using System.Collections.ObjectModel;
 using API.DataAccess;
 using API.Domain;
-using API.Dtos.ProjectDtos;
+using API.Dtos;
+using API.Requests.ProjectRequests;
 using API.Utils.Optional;
 using API.Utils.Result;
 using API.Validation;
@@ -21,14 +23,14 @@ public class ProjectService : IProjectService
     /// </summary>
     /// <param name="createProjectDto">Contains the information used to create the new Project.</param>
     /// <returns>A Result object describing the outcome of the operation.</returns>
-    public async Task<Result<Project>> CreateProject(CreateProjectDto createProjectDto)
+    public async Task<Result<ProjectDto>> CreateProject(CreateProjectDto createProjectDto)
     {
         Result<CreateProjectDto> validationResult = ProjectValidation
             .ValidateCreateProjectDto(createProjectDto);
 
         if (validationResult.Status != Status.Ok)
         {
-            return Result<Project>.Error(validationResult.Message, Status.BadRequest);
+            return Result<ProjectDto>.Error(validationResult.Message, Status.BadRequest);
         }
 
         Result<Project> resultProject = await _projectRepository
@@ -40,9 +42,15 @@ public class ProjectService : IProjectService
                     UserId = createProjectDto.OwnerId,
                 });
 
+        Result<ProjectDto> SuccessHandler(Project p) => Result<ProjectDto>.Success(ProjectDto.Of(p),
+            "The project was created successfully.", Status.Created);
+
+        Result<ProjectDto> ErrorHandler(string s, Status status) =>
+            Result<ProjectDto>.Error("The project could not be created.", Status.Error);
+
         return resultProject.Match(
-            p => Result<Project>.Success(p, "The project was created successfully.", Status.Created),
-            (s, status) => Result<Project>.Error("The project could not be created.", Status.Error)
+            SuccessHandler,
+            ErrorHandler
         );
     }
 
@@ -50,15 +58,15 @@ public class ProjectService : IProjectService
     /// Finds and returns the Project with the given ID if one exists.
     /// </summary>
     /// <param name="projectId">The ID of the Project to be returned.</param>
-    public async Task<Result<Project>> GetProjectById(int projectId)
+    public async Task<Result<ProjectDto>> GetProjectById(int projectId)
     {
         Optional<Project> foundProject = await _projectRepository
             .GetProjectById(projectId);
 
-        Result<Project> NoneHandler() =>
-            Result<Project>.Error($"No project with id {projectId} was found", Status.ResourceNotFound);
+        Result<ProjectDto> NoneHandler() =>
+            Result<ProjectDto>.Error($"No project with id {projectId} was found", Status.ResourceNotFound);
 
-        return foundProject.Match(Result<Project>.Success, NoneHandler);
+        return foundProject.Match(p => Result<ProjectDto>.Success(ProjectDto.Of(p)), NoneHandler);
     }
 
     /// <summary>
@@ -79,6 +87,12 @@ public class ProjectService : IProjectService
     /// Finds and returns the Projects created by the user with the given userId.
     /// </summary>
     /// <param name="userId">The ID of the user whose created Projects are to be returned.</param>
-    public Task<IEnumerable<Project>> GetProjectsByUserId(int userId) => 
-        _projectRepository.GetProjectsByUserId(userId);
+    public async Task<Collection<ProjectDto>> GetProjectsByUserId(int userId)
+    {
+        IEnumerable<Project> foundProjects = await _projectRepository.GetProjectsByUserId(userId);
+
+        return new Collection<ProjectDto>(foundProjects
+            .Select(p => ProjectDto.Of(p))
+            .ToList());
+    }
 }

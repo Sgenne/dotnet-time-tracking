@@ -1,6 +1,6 @@
 using API.Domain;
 
-namespace API.Dtos.AuthDtos;
+namespace API.Dtos;
 
 public class UserDto
 {

@@ -1,4 +1,4 @@
-namespace API.Dtos.ProjectDtos;
+namespace API.Requests.ProjectRequests;
 
 public class CreateProjectDto
 {

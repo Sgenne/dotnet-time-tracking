@@ -1,5 +1,7 @@
+using System.Collections.ObjectModel;
 using API.Domain;
-using API.Dtos.ProjectDtos;
+using API.Dtos;
+using API.Requests.ProjectRequests;
 using API.Services;
 using API.Utils;
 using API.Utils.Optional;
@@ -32,7 +34,7 @@ public class ProjectController : ControllerBase
 
         int userId = optionalUserId.Some();
 
-        IEnumerable<Project> userCreatedProjects = await _projectService.GetProjectsByUserId(userId);
+        Collection<ProjectDto> userCreatedProjects = await _projectService.GetProjectsByUserId(userId);
 
         return Ok(userCreatedProjects);
     }
@@ -41,7 +43,7 @@ public class ProjectController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
-        Result<Project> result =
+        Result<ProjectDto> result =
             await _projectService
                 .CreateProject(createProjectDto);
 
@@ -69,7 +71,7 @@ public class ProjectController : ControllerBase
                 { StatusCode = 403 };
         }
 
-        Result<Project> result = await _projectService.GetProjectById(projectId);
+        Result<ProjectDto> result = await _projectService.GetProjectById(projectId);
 
         return result.Match<IActionResult>(
             Ok,
