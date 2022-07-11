@@ -1,6 +1,7 @@
 using API.DataAccess;
 using API.Domain;
-using API.Dtos.ProjectDtos;
+using API.Dtos;
+using API.Requests.ProjectRequests;
 using API.Services;
 using API.Utils.Optional;
 using API.Utils.Result;
@@ -33,8 +34,8 @@ public class ProjectServiceTests
             Description = "Description"
         };
 
-        Result<Project> result = await projectService.CreateProject(createProjectDto);
-        Project resultProject = result
+        Result<ProjectDto> result = await projectService.CreateProject(createProjectDto);
+        ProjectDto resultProject = result
             .Match(
                 p => p,
                 (_, __) => throw new Exception("ErrorHandler called.")
@@ -65,7 +66,7 @@ public class ProjectServiceTests
 
         int searchId = 1;
 
-        Result<Project> result = await projectService.GetProjectById(searchId);
+        Result<ProjectDto> result = await projectService.GetProjectById(searchId);
 
         mockProjectRepository.Verify(
             m => m.GetProjectById(searchId),

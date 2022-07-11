@@ -1,6 +1,7 @@
 using API.DataAccess;
 using API.Domain;
-using API.Dtos.AuthDtos;
+using API.Dtos;
+using API.Requests.AuthRequests;
 using API.Services;
 using API.Utils.Optional;
 using API.Utils.Result;
@@ -35,7 +36,7 @@ public class AuthServiceTests
             );
         AuthService authService = new AuthService(mockRepository.Object, mockConfiguration.Object);
 
-        Result<User> result = await authService.RegisterUser(registerUserDto);
+        Result<UserDto> result = await authService.RegisterUser(registerUserDto);
 
         result.Match(
             u => throw new Exception("Wrong handler called"),
@@ -76,9 +77,9 @@ public class AuthServiceTests
 
         AuthService authService = new AuthService(mockRepository.Object, mockConfiguration.Object);
 
-        Result<User> result = await authService.RegisterUser(registerUserDto);
+        Result<UserDto> result = await authService.RegisterUser(registerUserDto);
 
-        User registeredUser = result.Match(
+        UserDto registeredUser = result.Match(
             (p) => p,
             (message, status) => throw new Exception("Wrong handler called")
         );

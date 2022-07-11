@@ -1,4 +1,4 @@
-using API.Dtos.ProjectDtos;
+using API.Requests.ProjectRequests;
 using API.Utils.Result;
 using API.Validation;
 
