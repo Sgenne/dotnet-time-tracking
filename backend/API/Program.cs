@@ -5,9 +5,26 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+
+string corsPolicyName = "CORSPolicy";
+string frontendUrl = "http://localhost:3000";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services
+    .AddCors(
+        options =>
+        {
+            options.AddPolicy(name: corsPolicyName,
+                policy =>
+                {
+                    policy
+                        .WithOrigins(frontendUrl)
+                        .AllowAnyHeader();
+                });
+        });
 
 builder.Services
     .AddDbContext<DataContext>(
@@ -51,6 +68,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+app.UseCors(corsPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
