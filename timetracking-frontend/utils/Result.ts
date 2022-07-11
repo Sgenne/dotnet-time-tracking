@@ -2,6 +2,6 @@ import StatusCode from "./StatusCodes";
 
 export default interface Result<T> {
   status: StatusCode;
-  message: string;
+  message?: string;
   value?: T;
 }

@@ -1,14 +1,13 @@
 import axios from "axios";
 import Result from "../utils/Result";
 import { LOGIN_URL } from "../utils/Urls";
-import { AccessToken } from "../types/AccessToken";
+import LoginResponse from "../types/apiResponses/LoginResponse";
 
 export const sendLoginRequest = async (
   username: string,
   password: string
-): Promise<Result<AccessToken>> => {
-  // TODO: change response type after adding "Responses" to backend.
-  const loginResult = await axios.post(
+): Promise<Result<LoginResponse>> => {
+  const loginResult = await axios.post<LoginResponse>(
     LOGIN_URL,
     {
       username,
@@ -19,8 +18,10 @@ export const sendLoginRequest = async (
     }
   );
 
-  if (loginResult.status !== 200) {
+  const result: Result<LoginResponse> = {
+    status: loginResult.status,
+    value: loginResult.data
   }
 
-  return loginResult.data;
+  return result;
 };
