@@ -1,4 +1,10 @@
-import { createContext, ReactElement, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import User from "../domain/User";
 
 export interface AuthContextState {
@@ -81,6 +87,13 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
     setAccessToken(undefined);
     setSignedInUser(undefined);
   };
+
+  console.log("isSignedIn: " + isSignedIn);
+  console.log(
+    "username: " +
+      (signedInUser ? signedInUser.username : "No user is signed in.")
+  );
+  console.log("accessToken: " + accessToken);
 
   const state: AuthContextState = {
     isSignedIn,

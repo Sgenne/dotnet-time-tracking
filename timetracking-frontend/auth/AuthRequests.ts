@@ -20,8 +20,8 @@ export const sendLoginRequest = async (
 
   const result: Result<LoginResponse> = {
     status: loginResult.status,
-    value: loginResult.data
-  }
+    value: loginResult.data,
+  };
 
   return result;
 };

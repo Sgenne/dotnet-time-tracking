@@ -1,5 +1,6 @@
 import styles from "../../styles/login/LoginPageComponent.module.css";
 import ControlledStateHandler from "../../types/ControlledStateHandler";
+import ErrorMessage from "../utils/ErrorMessage";
 import ClearTextInput from "../utils/input/ClearTextInput";
 import HiddenTextInput from "../utils/input/HiddenTextInput";
 import PrimaryButton from "../utils/PrimaryButton";
@@ -8,12 +9,14 @@ export interface LoginPageComponentProps {
   usernameHandler: ControlledStateHandler<string>;
   passwordHandler: ControlledStateHandler<string>;
   onSubmit: () => void;
+  errorMessage: string;
 }
 
 const LoginPageComponent = ({
   usernameHandler,
   passwordHandler,
   onSubmit,
+  errorMessage,
 }: LoginPageComponentProps) => {
   const { changeHandler: usernameChangeHandler, value: usernameValue } =
     usernameHandler;
@@ -23,6 +26,7 @@ const LoginPageComponent = ({
   return (
     <div className={styles["login-page"]}>
       <h1>Login</h1>
+      <ErrorMessage>{errorMessage}</ErrorMessage>
       <div className={styles["username-container"]}>
         <label>Enter username</label>
         <ClearTextInput
