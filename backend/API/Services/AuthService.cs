@@ -91,7 +91,7 @@ public class AuthService : IAuthService
         if (optionalUser.IsEmpty)
         {
             return Result<LoginResponse>
-                .Error($"No user with the username\"{username}\" was found", Status.ResourceNotFound);
+                .Error($"No user with the username \"{username}\" was found", Status.ResourceNotFound);
         }
 
         User user = optionalUser.Some(u => u);
