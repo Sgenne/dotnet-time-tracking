@@ -12,7 +12,7 @@ const ErrorMessage = ({ children }: ErrorMessageProps) => {
 
   return (
     <div className={styles["container"]}>
-      <p className={styles["message"]}></p>
+      <p className={styles["message"]}>{children}</p>
     </div>
   );
 };

@@ -25,7 +25,6 @@ const Login = () => {
 
     if (!result.value) {
       const errorMessage: string = result.message || "Login failed";
-      console.log("errorMessage: " + errorMessage);
       setErrorMessage(errorMessage);
       return;
     }
