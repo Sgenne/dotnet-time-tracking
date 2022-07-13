@@ -25,6 +25,7 @@ const Login = () => {
 
     if (!result.value) {
       const errorMessage: string = result.message || "Login failed";
+      console.log("errorMessage: " + errorMessage);
       setErrorMessage(errorMessage);
       return;
     }
@@ -33,7 +34,6 @@ const Login = () => {
       username: usernameValue,
     };
     const accessToken = result.value.accessToken;
-
     authContext.onSignIn(accessToken, user);
   };
 
