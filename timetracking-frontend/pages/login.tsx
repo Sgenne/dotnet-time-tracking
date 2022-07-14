@@ -29,6 +29,7 @@ const Login = () => {
       return;
     }
 
+    setErrorMessage("");
     const user: User = {
       username: usernameValue,
     };
