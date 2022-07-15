@@ -1,4 +1,4 @@
-import { NextRouter, useRouter } from "next/router";
+import Router from "next/router";
 import { ReactElement, useEffect, useReducer, useState } from "react";
 import { AuthContextState, useAuthContext } from "./AuthContext";
 
@@ -8,27 +8,24 @@ const LoginGuard = ({ children }: { children: ReactElement }) => {
     redirectReducer,
     defaultReducerState
   );
-  const router: NextRouter = useRouter();
-
-  const url: string = router.pathname;
 
   useEffect(() => {
+    const url: string = Router.pathname;
     const shouldRedirect: boolean = !authContext.isSignedIn && url !== "/login";
-
     if (shouldRedirect) {
-      router.push("/login");
+      Router.push("/login");
       dispatch(redirectToLoginAction(url));
     }
-  }, [authContext.isSignedIn, router, url]);
+  }, [authContext.isSignedIn]);
 
   useEffect(() => {
     if (!authContext.isSignedIn) return;
 
     const newUrl: string = hasRedirected ? redirectedFrom : "/";
 
-    router.push(newUrl);
+    Router.push(newUrl);
     dispatch(redirectFromLoginAction());
-  }, [authContext.isSignedIn, hasRedirected, redirectedFrom, router]);
+  }, [authContext.isSignedIn, hasRedirected, redirectedFrom]);
 
   return children;
 };
