@@ -3,6 +3,7 @@ import { ReactElement, useEffect, useReducer, useState } from "react";
 import { AuthContextState, useAuthContext } from "./AuthContext";
 
 const LoginGuard = ({ children }: { children: ReactElement }) => {
+  const [checkedAuthStatus, setCheckedAuthStatus] = useState(false);
   const authContext: AuthContextState = useAuthContext();
   const [{ hasRedirected, redirectedFrom }, dispatch] = useReducer(
     redirectReducer,
@@ -10,12 +11,13 @@ const LoginGuard = ({ children }: { children: ReactElement }) => {
   );
 
   useEffect(() => {
-    const url: string = Router.pathname;
+    const url = Router.pathname;
     const shouldRedirect: boolean = !authContext.isSignedIn && url !== "/login";
     if (shouldRedirect) {
       Router.push("/login");
       dispatch(redirectToLoginAction(url));
     }
+    setCheckedAuthStatus(true);
   }, [authContext.isSignedIn]);
 
   useEffect(() => {
@@ -26,6 +28,8 @@ const LoginGuard = ({ children }: { children: ReactElement }) => {
     Router.push(newUrl);
     dispatch(redirectFromLoginAction());
   }, [authContext.isSignedIn, hasRedirected, redirectedFrom]);
+
+  if (!authContext.getSignedInUser) return 
 
   return children;
 };
