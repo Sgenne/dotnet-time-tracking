@@ -88,13 +88,6 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
     setSignedInUser(undefined);
   };
 
-  console.log("isSignedIn: " + isSignedIn);
-  console.log(
-    "username: " +
-      (signedInUser ? signedInUser.username : "No user is signed in.")
-  );
-  console.log("accessToken: " + accessToken);
-
   const state: AuthContextState = {
     isSignedIn,
     getSignedInUser,

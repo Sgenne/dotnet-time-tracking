@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Link from "next/link";
+import withAuthentication from "../higherOrderComponents/WithAuthentication";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -10,4 +10,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default withAuthentication(Home);

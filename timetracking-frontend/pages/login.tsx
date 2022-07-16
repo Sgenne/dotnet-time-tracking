@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { useState } from "react";
 import { useAuthContext } from "../auth/AuthContext";
 import { sendLoginRequest } from "../auth/AuthRequests";
@@ -35,6 +36,7 @@ const Login = () => {
     };
     const accessToken = result.value.accessToken;
     authContext.onSignIn(accessToken, user);
+    Router.push("/")
   };
 
   return (
