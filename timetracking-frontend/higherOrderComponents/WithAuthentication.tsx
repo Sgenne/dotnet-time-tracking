@@ -10,11 +10,7 @@ const withAuthentication = <TProps,>(
     const { isSignedIn } = useAuthContext();
 
     useEffect(() => {
-      if (!isSignedIn) {
-        setTimeout(() => {
-          Router.push("/login");
-        }, 1000);
-      }
+      if (!isSignedIn) Router.push("/login");
     }, [isSignedIn]);
 
     return isSignedIn ? <WrappedComponent {...props} /> : <LoadingSpinner />;

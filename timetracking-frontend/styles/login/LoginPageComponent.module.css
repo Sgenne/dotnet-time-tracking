@@ -1,0 +1,13 @@
+.page-container {
+    height: 100%;
+    text-align: center;
+    padding-top: 144px;
+}
+
+.login-section input {
+    max-width: 100%;
+}
+
+.error-message-container {
+    margin: auto;
+}

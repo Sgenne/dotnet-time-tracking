@@ -24,25 +24,29 @@ const LoginPageComponent = ({
     passwordHandler;
 
   return (
-    <div className={styles["login-page"]}>
-      <h1>Login</h1>
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-      <div className={styles["username-container"]}>
-        <label>Enter username</label>
-        <ClearTextInput
-          onChange={usernameChangeHandler}
-          value={usernameValue}
-        />
-      </div>
-      <div className={styles["password-container"]}>
-        <label>Enter password</label>
-        <HiddenTextInput
-          onChange={passwordChangeHandler}
-          value={passwordValue}
-        />
-      </div>
-      <div className={styles["submit-container"]}>
-        <PrimaryButton onClick={onSubmit}>Login</PrimaryButton>
+    <div className={styles["page-container"]}>
+      <div className={styles["login-section"]}>
+        <h1>Login</h1>
+        <div className={`w-25 ${styles["error-message-container"]}`}>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+        </div>
+        <div className={styles["username-container"]}>
+          <label>Enter username</label>
+          <ClearTextInput
+            onChange={usernameChangeHandler}
+            value={usernameValue}
+          />
+        </div>
+        <div className={styles["password-container"]}>
+          <label>Enter password</label>
+          <HiddenTextInput
+            onChange={passwordChangeHandler}
+            value={passwordValue}
+          />
+        </div>
+        <div className={styles["submit-container"]}>
+          <PrimaryButton onClick={onSubmit}>Login</PrimaryButton>
+        </div>
       </div>
     </div>
   );

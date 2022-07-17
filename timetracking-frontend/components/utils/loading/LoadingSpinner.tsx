@@ -4,7 +4,7 @@ import styles from "../../../styles/utils/loading/LoadingSpinner.module.css";
 const LoadingSpinner = () => {
   return (
     <div className={styles["container"]}>
-      <ClipLoader />
+      <ClipLoader size={70} />
     </div>
   );
 };

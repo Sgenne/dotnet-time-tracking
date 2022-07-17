@@ -1,3 +1,5 @@
+import "bootstrap/dist/css/bootstrap.css"
+
 import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { AuthContextProvider } from "../auth/AuthContext";
