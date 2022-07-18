@@ -27,7 +27,7 @@ const LoginPageComponent = ({
     <div className={styles["page-container"]}>
       <div className={styles["login-section"]}>
         <h1>Login</h1>
-        <div className={`w-25 ${styles["error-message-container"]}`}>
+        <div className={`${styles["error-message-container"]}`}>
           <ErrorMessage>{errorMessage}</ErrorMessage>
         </div>
         <div className={styles["username-container"]}>
@@ -44,8 +44,10 @@ const LoginPageComponent = ({
             value={passwordValue}
           />
         </div>
-        <div className={styles["submit-container"]}>
-          <PrimaryButton onClick={onSubmit}>Login</PrimaryButton>
+        <div className={`${styles["submit-container"]}`}>
+          <div className={styles["submit-button"]}>
+            <PrimaryButton onClick={onSubmit}>Login</PrimaryButton>
+          </div>
         </div>
       </div>
     </div>

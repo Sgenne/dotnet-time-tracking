@@ -11,3 +11,8 @@
 .error-message-container {
     margin: auto;
 }
+
+.submit-button {
+    width: fit-content;
+    margin: 8px auto;
+}
