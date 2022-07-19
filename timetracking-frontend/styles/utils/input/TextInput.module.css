@@ -1,0 +1,16 @@
+
+.input {
+    width: 100%;
+    padding: 6px;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:focus, 
+.input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

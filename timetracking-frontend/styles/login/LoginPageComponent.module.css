@@ -1,11 +1,17 @@
 .page-container {
     height: 100%;
     text-align: center;
-    padding-top: 144px;
+    overflow-y: hidden;
 }
 
-.login-section input {
-    max-width: 100%;
+.login-section {
+    margin: 5% auto;
+    width: 33%;
+    padding: 124px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    background-color: #fbfbfb;
+
 }
 
 .error-message-container {
@@ -13,6 +19,6 @@
 }
 
 .submit-button {
-    width: fit-content;
+    width: 100%;
     margin: 8px auto;
 }
