@@ -26,7 +26,7 @@ const LoginPageComponent = ({
   return (
     <div className={styles["page-container"]}>
       <div className={styles["login-section"]}>
-        <h1>Login</h1>
+        <h1 className={styles["page-title"]}>Login</h1>
         <div className={`${styles["error-message-container"]}`}>
           <ErrorMessage>{errorMessage}</ErrorMessage>
         </div>

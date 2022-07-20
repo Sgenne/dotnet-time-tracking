@@ -2,16 +2,22 @@
     height: 100%;
     text-align: center;
     overflow-y: hidden;
+    background-color: #2C1338;
 }
 
 .login-section {
     margin: 5% auto;
     width: 33%;
-    padding: 124px;
-    border: 1px solid grey;
+    padding: 64px 124px 128px 124px;
+    border: 1px solid #efefef;
     border-radius: 4px;
-    background-color: #fbfbfb;
+    background-color: #FCE5D8;
+}
 
+.page-title {
+    color: #E57CD7;
+    font-size: 48px;
+    font-weight: 1000;
 }
 
 .error-message-container {
