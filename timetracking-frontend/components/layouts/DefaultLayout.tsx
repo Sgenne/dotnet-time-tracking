@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import styles from "../../styles/layouts/DefaultLayout.module.css";
-import VerticalNavbar from "./navbar/VerticalNavbar";
+import VerticalNavbar from "./navbar/verticalNavbar/VerticalNavbar";
 
 export interface DefaultLayoutProps {
   children: ReactElement;

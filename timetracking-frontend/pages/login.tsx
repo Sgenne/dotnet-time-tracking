@@ -2,14 +2,16 @@ import Router from "next/router";
 import { useState } from "react";
 import { useAuthContext } from "../auth/AuthContext";
 import { sendLoginRequest } from "../auth/AuthRequests";
+import { useNoNavbarLayout } from "../components/layouts/NoNavbarLayout";
 import LoginPageComponent from "../components/login/LoginPageComponent";
 import User from "../domain/User";
 import useStringInput from "../hooks/useStringInput";
 import LoginResponse from "../types/apiResponses/LoginResponse";
 import ControlledStateHandler from "../types/ControlledStateHandler";
+import PageWithLayout from "../types/PageWithLayout";
 import Result from "../utils/Result";
 
-const Login = () => {
+const Login: PageWithLayout = () => {
   const usernameHandler: ControlledStateHandler<string> = useStringInput();
   const passwordHandler: ControlledStateHandler<string> = useStringInput();
   const [errorMessage, setErrorMessage] = useState("");
@@ -48,5 +50,7 @@ const Login = () => {
     />
   );
 };
+
+Login.getLayout = useNoNavbarLayout;
 
 export default Login;
