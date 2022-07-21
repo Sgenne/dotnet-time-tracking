@@ -3,7 +3,7 @@ import ControlledStateHandler from "../../types/ControlledStateHandler";
 import ErrorMessage from "../utils/ErrorMessage";
 import ClearTextInput from "../utils/input/ClearTextInput";
 import HiddenTextInput from "../utils/input/HiddenTextInput";
-import PrimaryButton from "../utils/PrimaryButton";
+import PrimaryButton from "../utils/buttons/PrimaryButton";
 
 export interface LoginPageComponentProps {
   usernameHandler: ControlledStateHandler<string>;

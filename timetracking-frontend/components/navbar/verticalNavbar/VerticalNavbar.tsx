@@ -1,4 +1,4 @@
-import styles from "../../../../styles/layouts/navbar/verticalNavbar/VerticalNavbar.module.css"
+import styles from "../../../styles/navbar/verticalNavbar/VerticalNavbar.module.css"
 import LinkSection from "./LinkSection"
 
 const VerticalNavbar = () => {
