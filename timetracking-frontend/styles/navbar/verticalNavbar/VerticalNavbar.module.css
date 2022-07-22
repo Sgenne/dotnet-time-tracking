@@ -5,3 +5,9 @@
     padding-left: 12px;
     overflow: hidden;
 }
+
+.link-sections {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

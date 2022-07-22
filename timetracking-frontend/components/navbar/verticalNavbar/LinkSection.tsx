@@ -1,18 +1,24 @@
-
 import styles from "../../../styles/navbar/verticalNavbar/LinkSection.module.css";
-import IconLink from "../IconLink";
+import IconLink, { IconLinkProps } from "../IconLink";
 import ClockIcon from "../../utils/icons/ClockIcon";
+import FolderIcon from "../../utils/icons/FolderIcon";
+import { ReactElement } from "react";
 
-const LinkSection = () => {
+export interface LinkSectionProps {
+    header: string;
+    links: IconLinkProps[];
+}
+
+const LinkSection = ({ header, links }: LinkSectionProps) => {
+
+    const iconLinks: ReactElement[] = links.map(linkProps => <li key={header + links}>
+        <IconLink {...linkProps} />
+    </li>)
+
     return (
         <div className={styles["section-container"]}>
-            <h5 className={styles["section-header"]}>Track</h5>
-            <ul className={styles["links"]}>
-                <li>
-                    <IconLink href="#" linkText="Timers" icon={<ClockIcon />} />
-                </li>
-                <li>Projects</li>
-            </ul>
+            <h5 className={styles["section-header"]}>{header}</h5>
+            <ul className={styles["links"]}>{iconLinks}</ul>
         </div>
     )
 }

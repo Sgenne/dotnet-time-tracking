@@ -1,10 +1,14 @@
 .link {
   display: inline-block;
-  color: #fef9f7;
+  color: #FFEED9;
   width: 100%;
   font-size: 16px;
 }
 
 .icon {
   margin-right: 8px;
+}
+
+.link:hover {
+  color: white;
 }
