@@ -9,7 +9,7 @@ const linkSectionProps: LinkSectionProps[] = [
         header: "TRACK",
         links: [
             {
-                href: "#",
+                href: "/timer",
                 linkText: "Timer",
                 icon: ClockIcon
             }
@@ -19,12 +19,12 @@ const linkSectionProps: LinkSectionProps[] = [
         header: "MANAGE",
         links: [
             {
-                href: "#",
+                href: "/projects",
                 linkText: "Projects",
                 icon: FolderIcon
             },
             {
-                href: "#",
+                href: "/tags",
                 linkText: "Tags",
                 icon: TagIcon
             }

@@ -8,11 +8,18 @@
 .section-header {
     color: #6C5973;
     padding-left: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 0px;
 }
 
 .links {
     padding: 0;
     margin: 0;
     list-style: none;
+    /* border: 2px solid green; */
+}
+
+.link-item {
+    /* border: 2px double orange; */
+    /* margin-bottom: 8px; */
+    height: 32px;
 }

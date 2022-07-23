@@ -1,14 +1,26 @@
 .link {
   display: inline-block;
-  color: #FFEED9;
+  color: #ffeed9;
   width: 100%;
   font-size: 16px;
+  font-weight: 600;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+}
+
+.link:hover {
+  color: white;
 }
 
 .icon {
   margin-right: 8px;
 }
 
-.link:hover {
+.active-link {
   color: white;
+  background-color: #422A4C;
+  border-radius: 8px;
+
 }
