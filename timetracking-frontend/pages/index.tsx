@@ -1,10 +1,16 @@
 import type { NextPage } from "next";
+import Router from "next/router";
+import { useEffect } from "react";
 import withAuthentication from "../higherOrderComponents/WithAuthentication";
-import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+
+  useEffect(() => {
+    Router.push("/timer");
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div>
       <h1>Index</h1>
     </div>
   );
