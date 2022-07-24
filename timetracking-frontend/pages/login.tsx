@@ -12,33 +12,54 @@ import PageWithLayout from "../types/PageWithLayout";
 import Result from "../utils/Result";
 
 const Login: PageWithLayout = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const usernameHandler: ControlledStateHandler<string> = useStringInput();
   const passwordHandler: ControlledStateHandler<string> = useStringInput();
-  const [errorMessage, setErrorMessage] = useState("");
 
   const { value: usernameValue } = usernameHandler;
   const { value: passwordValue } = passwordHandler;
   const authContext = useAuthContext();
 
   const submitHandler = async () => {
+    setIsLoading(true);
     const result: Result<LoginResponse> = await sendLoginRequest(
       usernameValue,
       passwordValue
     );
 
-    if (!result.value) {
-      const errorMessage: string = result.message || "Login failed";
-      setErrorMessage(errorMessage);
-      return;
-    }
+    setTimeout(() => {
+      setIsLoading(false);
+      if (!result.value) {
+        const errorMessage: string = result.message || "Login failed";
+        setErrorMessage(errorMessage);
+        return;
+      }
 
-    setErrorMessage("");
-    const user: User = {
-      username: usernameValue,
-    };
-    const accessToken = result.value.accessToken;
-    authContext.onSignIn(accessToken, user);
-    Router.push("/")
+      setErrorMessage("");
+      const user: User = {
+        username: usernameValue,
+      };
+      const accessToken = result.value.accessToken;
+      authContext.onSignIn(accessToken, user);
+      Router.push("/")
+    }, 2000)
+
+    // setIsLoading(false);
+    // if (!result.value) {
+    //   const errorMessage: string = result.message || "Login failed";
+    //   setErrorMessage(errorMessage);
+    //   return;
+    // }
+
+    // setErrorMessage("");
+    // const user: User = {
+    //   username: usernameValue,
+    // };
+    // const accessToken = result.value.accessToken;
+    // authContext.onSignIn(accessToken, user);
+    // Router.push("/")
   };
 
   return (
@@ -47,6 +68,7 @@ const Login: PageWithLayout = () => {
       passwordHandler={passwordHandler}
       onSubmit={submitHandler}
       errorMessage={errorMessage}
+      isLoading={isLoading}
     />
   );
 };

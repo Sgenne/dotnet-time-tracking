@@ -15,3 +15,8 @@
     background-color: #564260;
     cursor: pointer;
 }
+
+button.loading:hover {
+    cursor: wait;
+    background-color: #E57CD7;
+}
