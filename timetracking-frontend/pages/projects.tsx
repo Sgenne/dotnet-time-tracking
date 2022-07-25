@@ -1,9 +1,8 @@
+import ProjectPageComponent from "../components/projects/ProjectPageComponent"
 import withAuthentication from "../higherOrderComponents/WithAuthentication"
 
 const projects = () => {
-    return (
-        <div>projects</div>
-    )
+    return <ProjectPageComponent />
 }
 
 export default withAuthentication(projects)

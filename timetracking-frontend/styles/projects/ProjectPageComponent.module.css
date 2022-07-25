@@ -1,0 +1,27 @@
+.page-container {
+  background-color: #fef9f7;
+  width: 100%;
+  height: 100vh;
+}
+
+.top-bar {
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: fit-content;
+  padding: 12px 38px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.new-project-button-container {
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+}
+
+.new-project-button__text {
+  padding-left: 4px;
+}
