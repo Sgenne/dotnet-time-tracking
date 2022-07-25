@@ -11,7 +11,7 @@ const ProjectPageComponent = () => {
                     <PrimaryButton onClick={() => { }}>
                         <>
                             <PlusIcon />
-                            <span className={styles["new-project-button__text"]}> New Project</span>
+                            <span className={styles["new-project-button__text"]}>New Project</span>
                         </>
                     </PrimaryButton>
                 </span>
