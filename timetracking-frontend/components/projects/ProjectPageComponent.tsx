@@ -1,6 +1,25 @@
+import { JSXElementConstructor, ReactElement } from "react";
 import styles from "../../styles/projects/ProjectPageComponent.module.css";
 import PrimaryButton from "../utils/buttons/PrimaryButton";
 import PlusIcon from "../utils/icons/PlusIcon";
+import Table from "../utils/Table";
+
+const DUMMY_TABLE_ITEMS: { [key: string]: string | ReactElement<any, string | JSXElementConstructor<any>>; }[]
+    = [{
+        Project: "AG",
+        "Time Status": "7h",
+        Team: "Simon"
+    }, 
+    {
+        Project: "Kandidatarbete",
+        "Time Status": "141h",
+        Team: "Simon"
+    }, 
+    {
+        Project: "Software Analysis and Design",
+        "Time Status": "7h",
+        Team: "Simon"
+    }]
 
 const ProjectPageComponent = () => {
     return (
@@ -17,7 +36,7 @@ const ProjectPageComponent = () => {
                 </span>
             </div>
             <div className={styles["projects-list"]}>
-                projects here
+                <Table tableItems={DUMMY_TABLE_ITEMS} />
             </div>
         </div>
     )
