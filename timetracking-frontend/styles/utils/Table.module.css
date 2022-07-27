@@ -1,0 +1,24 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.header th {
+  text-align: start;
+  padding-left: 16px;
+}
+
+.table tr {
+  border-bottom: 1px solid #0000002f;
+}
+
+.table tr td,
+.table tr th {
+  padding: 16px;
+}
+
+.table th,
+.table td {
+  width: 16%;
+  overflow: hidden;
+}

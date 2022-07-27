@@ -35,7 +35,7 @@ const ProjectPageComponent = () => {
                     </PrimaryButton>
                 </span>
             </div>
-            <div className={styles["projects-list"]}>
+            <div className={styles["projects-table"]}>
                 <Table tableItems={DUMMY_TABLE_ITEMS} />
             </div>
         </div>

@@ -10,7 +10,7 @@ const Table = ({ tableItems }: TableProps) => {
 
     const columns = Object.keys(tableItems[0]);
 
-    const tableHeader = <tr>
+    const tableHeader = <tr className={styles["header"]}>
         {
             columns.map(
                 col => <th key={col}>
