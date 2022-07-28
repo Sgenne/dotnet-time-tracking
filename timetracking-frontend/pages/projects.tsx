@@ -1,11 +1,21 @@
+import NewProjectModal from "../components/projects/NewProjectModal"
 import ProjectPageComponent from "../components/projects/ProjectPageComponent"
-import Modal from "../components/utils/Modal"
 import withAuthentication from "../higherOrderComponents/WithAuthentication"
+import useStringInput from "../hooks/useStringInput"
+import ControlledStateHandler from "../types/ControlledStateHandler"
 
-const projects = () => {
-    return <> 
-    <Modal />
-    <ProjectPageComponent /> </>
+const Projects = () => {
+    const newProjectNameStateHandler: ControlledStateHandler<string> =
+        useStringInput();
+    const newProjectDescriptionStateHandler: ControlledStateHandler<string> =
+        useStringInput();
+
+    return <>
+        <NewProjectModal
+            nameStateHandler={newProjectNameStateHandler}
+            descriptionStateHandler={newProjectDescriptionStateHandler} />
+        <ProjectPageComponent />
+    </>
 }
 
-export default withAuthentication(projects)
+export default withAuthentication(Projects)

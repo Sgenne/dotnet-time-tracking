@@ -1,0 +1,28 @@
+
+.container {
+    padding: 16px; 
+}
+
+.top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.name-label {
+    font-size: 14px;
+    font-weight: 300;
+    padding-bottom: 6px;
+}
+
+.top-section * {
+    margin: 0;
+    padding: 0;
+}
+
+.name-section {
+    margin-top: 32px;
+}
+
+.name-input {
+}
