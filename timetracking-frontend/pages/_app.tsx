@@ -1,7 +1,7 @@
 
 import "../styles/globals.css";
 import { AppProps } from "next/app";
-import { AuthContextProvider } from "../auth/AuthContext";
+import { AuthContextProvider } from "../context/AuthContext";
 import PageWithLayout from "../types/PageWithLayout";
 import { ReactElement } from "react";
 import { useDefaultLayout } from "../components/layouts/DefaultLayout";

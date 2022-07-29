@@ -9,10 +9,10 @@
     justify-content: space-between;
 }
 
-.name-label {
+.label {
     font-size: 14px;
     font-weight: 300;
-    padding-bottom: 6px;
+    padding-bottom: 4px;
 }
 
 .top-section * {
@@ -22,7 +22,9 @@
 
 .name-section {
     margin-top: 32px;
+    margin-bottom: 18px;
 }
 
-.name-input {
+.submit-button {
+    margin-top: 18px;
 }

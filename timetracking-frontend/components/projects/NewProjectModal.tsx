@@ -4,22 +4,24 @@ import TransparentCloseButton from "../utils/buttons/TransparentCloseButton";
 import ClearTextInput from "../utils/input/ClearTextInput";
 import TextArea from "../utils/input/TextArea";
 import ControlledStateHandler from "../../types/ControlledStateHandler";
+import PrimaryButton from "../utils/buttons/PrimaryButton";
 
 export interface NewProjectModalProps {
     nameStateHandler: ControlledStateHandler<string>;
     descriptionStateHandler: ControlledStateHandler<string>;
+    onClose: () => void
 }
 
-const NewProjectModal = ({ nameStateHandler, descriptionStateHandler }: NewProjectModalProps) => {
+const NewProjectModal = ({ nameStateHandler, descriptionStateHandler, onClose }: NewProjectModalProps) => {
     return (
         <Modal>
             <div className={styles["container"]}>
                 <div className={styles["top-section"]}>
                     <h4>New Project</h4>
-                    <TransparentCloseButton />
+                    <TransparentCloseButton onClick={onClose} />
                 </div>
-                <div className={styles["name-section"]}>
-                    <div className={styles["name-label"]}>
+                <div className={`${styles["name-section"]} ${styles["input-section"]}`}>
+                    <div className={styles["label"]}>
                         <label>Name</label>
                     </div>
                     <div className={styles["name-input"]}>
@@ -28,15 +30,18 @@ const NewProjectModal = ({ nameStateHandler, descriptionStateHandler }: NewProje
                             value={nameStateHandler.value} />
                     </div>
                 </div>
-                <div className={styles["description-section"]}>
-                    <div className={styles["description-label"]}>
-                        <label>description</label>
+                <div className={`${styles["description-section"]} ${styles["input-section"]}`}>
+                    <div className={styles["label"]}>
+                        <label>Description</label>
                     </div>
                     <div className={styles["description-input"]}>
                         <TextArea
                             onChange={descriptionStateHandler.changeHandler}
                             value={descriptionStateHandler.value} />
                     </div>
+                </div>
+                <div className={styles["submit-button"]}>
+                    <PrimaryButton onClick={() => { }}>Create Project</PrimaryButton>
                 </div>
             </div>
         </Modal>

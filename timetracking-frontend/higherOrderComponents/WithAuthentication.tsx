@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from "react";
-import { useAuthContext } from "../auth/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 import Router from "next/router";
 import LoadingPage from "../components/utils/loading/LoadingPage";
 
