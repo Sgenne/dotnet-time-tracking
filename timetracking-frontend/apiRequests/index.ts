@@ -1,39 +1,59 @@
 import axios, { AxiosResponse } from "axios";
 import Result, { resultFromAxiosError } from "../utils/Result";
 
-export const sendGetRequest = async <TApiResponse>(
+export const baseUrl = "http://localhost:8080";
+
+interface RequestArgs {
+  url: string;
+  data: object;
+  config?: Config;
+  successMessage?: string;
+  accessToken?: string;
+}
+
+type Config = { headers: object } & { [key: string]: any };
+
+type AxiosRequest<TApiResponse> = (
   url: string,
-  config: object = {},
-  successMessage: string = ""
-): Promise<Result<TApiResponse>> =>
-  sendRequest(axios.get, url, {}, config, successMessage);
+  data: object,
+  config: object
+) => Promise<AxiosResponse<TApiResponse>>;
+
+export const sendGetRequest = async <TApiResponse>(
+  args: RequestArgs
+): Promise<Result<TApiResponse>> => sendRequest(args, axios.get);
 
 export const sendPostRequest = async <TApiResponse>(
-  url: string,
-  data: object,
-  config: object = {
-    headers: { "content-type": "text/json" },
-  },
-  successMessage: string = ""
-): Promise<Result<TApiResponse>> =>
-  sendRequest(axios.post, url, data, config, successMessage);
+  args: RequestArgs
+): Promise<Result<TApiResponse>> => sendRequest<TApiResponse>(args, axios.post);
 
 const sendRequest = async <TApiResponse>(
-  requestFunction: (
-    url: string,
-    data: object,
-    config: object
-  ) => Promise<AxiosResponse<TApiResponse, any>>,
-  url: string,
-  data: object,
-  config: object = {
-    headers: { "content-type": "text/json" },
-  },
-  successMessage: string = ""
+  {
+    config = {
+      headers: { "content-type": "text/json" },
+    },
+    url,
+    data,
+    successMessage = "",
+    accessToken = "",
+  }: RequestArgs,
+  requestFunction: AxiosRequest<TApiResponse>
 ): Promise<Result<TApiResponse>> => {
   let result: AxiosResponse<TApiResponse>;
   try {
-    result = await requestFunction(url, data, config);
+    result = await requestFunction(
+      url,
+      data,
+      accessToken
+        ? {
+            ...config,
+            headers: {
+              ...config.headers,
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        : config
+    );
   } catch (error) {
     return resultFromAxiosError(error);
   }

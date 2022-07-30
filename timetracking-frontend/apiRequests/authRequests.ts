@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import Result, { resultFromAxiosError } from "../utils/Result";
-import { LOGIN_URL } from "../utils/Urls";
 import LoginResponse from "../types/apiResponses/LoginResponse";
+import { baseUrl } from ".";
+
+const baseAuthUrl = `${baseUrl}/auth`;
+
+export const LOGIN_URL = `${baseAuthUrl}/login`;
+export const REGISTER_URL = `${baseAuthUrl}/register`;
 
 /**
  * Sends a login request to the backend API. If successful, then an access token
