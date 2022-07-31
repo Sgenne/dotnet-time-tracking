@@ -30,6 +30,8 @@ public class ProjectController : ControllerBase
     {
         Optional<int> optionalUserId = HttpContext.User.GetId();
 
+        Console.WriteLine("here");
+        
         if (optionalUserId.IsEmpty) return this.NoUserIdResponse();
 
         int userId = optionalUserId.Some();

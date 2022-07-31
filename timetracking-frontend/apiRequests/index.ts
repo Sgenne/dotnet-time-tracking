@@ -3,15 +3,15 @@ import Result, { resultFromAxiosError } from "../utils/Result";
 
 export const baseUrl = "http://localhost:8080";
 
-interface RequestArgs {
+export interface RequestArgs {
   url: string;
-  data: object;
+  data?: object;
   config?: Config;
   successMessage?: string;
   accessToken?: string;
 }
 
-type Config = { headers: object } & { [key: string]: any };
+export type Config = { headers: object } & { [key: string]: any };
 
 type AxiosRequest<TApiResponse> = (
   url: string,
@@ -21,7 +21,8 @@ type AxiosRequest<TApiResponse> = (
 
 export const sendGetRequest = async <TApiResponse>(
   args: RequestArgs
-): Promise<Result<TApiResponse>> => sendRequest(args, axios.get);
+): Promise<Result<TApiResponse>> =>
+  sendRequest(args, (url, _, config) => axios.get(url, config));
 
 export const sendPostRequest = async <TApiResponse>(
   args: RequestArgs
@@ -33,13 +34,26 @@ const sendRequest = async <TApiResponse>(
       headers: { "content-type": "text/json" },
     },
     url,
-    data,
+    data = {},
     successMessage = "",
     accessToken = "",
   }: RequestArgs,
   requestFunction: AxiosRequest<TApiResponse>
 ): Promise<Result<TApiResponse>> => {
   let result: AxiosResponse<TApiResponse>;
+
+  const dummyConfig = accessToken
+    ? {
+        ...config,
+        headers: {
+          ...config.headers,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    : config;
+
+  console.log("sending: ", dummyConfig);
+
   try {
     result = await requestFunction(
       url,

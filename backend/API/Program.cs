@@ -21,8 +21,11 @@ builder.Services
                 policy =>
                 {
                     policy
-                        .WithOrigins(frontendUrl)
-                        .AllowAnyHeader();
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    // .WithOrigins(frontendUrl)
+                    // .AllowAnyHeader();
                 });
         });
 
