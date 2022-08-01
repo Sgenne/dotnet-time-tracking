@@ -1,39 +1,29 @@
 import { JSXElementConstructor, ReactElement, useState } from "react";
 import styles from "../../styles/projects/ProjectsPageComponent.module.css";
 import ControlledStateHandler from "../../types/ControlledStateHandler";
+import Project from "../../types/domain/Project";
 import PrimaryButton from "../utils/buttons/PrimaryButton";
 import PlusIcon from "../utils/icons/PlusIcon";
-import Table from "../utils/Table";
+import LoadingSpinner from "../utils/loading/LoadingSpinner";
+import Table, { TableItem } from "../utils/Table";
 import NewProjectModal from "./NewProjectModal";
-
-const DUMMY_TABLE_ITEMS: { [key: string]: string | ReactElement<any, string | JSXElementConstructor<any>>; }[]
-    = [{
-        Project: "AG",
-        "Time Status": "7h",
-        Team: "Simon"
-    },
-    {
-        Project: "Kandidatarbete",
-        "Time Status": "141h",
-        Team: "Simon"
-    },
-    {
-        Project: "Software Analysis and Design",
-        "Time Status": "7h",
-        Team: "Simon"
-    }]
-
 
 export interface ProjectPageComponentProps {
     newProjectNameStateHandler: ControlledStateHandler<string>;
     newProjectDescriptionHandler: ControlledStateHandler<string>;
+    userProjects: Project[];
 }
 
-const ProjectPageComponent = ({ newProjectNameStateHandler, newProjectDescriptionHandler }: ProjectPageComponentProps) => {
+const ProjectPageComponent = ({ newProjectNameStateHandler, newProjectDescriptionHandler, userProjects }: ProjectPageComponentProps) => {
     const [showNewProjectModal, setShowNewProjectModal] = useState(false);
 
     const newProjectClickHandler = () => setShowNewProjectModal(true);
     const newProjectCloseHandler = () => setShowNewProjectModal(false);
+
+    const projectTableItems: TableItem[] = userProjects.map(project => ({
+        Project: project.title,
+        "Time Status": "7h"
+    }))
 
     return (
         <div className={styles["page-container"]}>
@@ -54,9 +44,15 @@ const ProjectPageComponent = ({ newProjectNameStateHandler, newProjectDescriptio
                     </PrimaryButton>
                 </span>
             </div>
-            <div className={styles["projects-table"]}>
-                <Table tableItems={DUMMY_TABLE_ITEMS} />
-            </div>
+            {
+                userProjects
+                    ?
+                    <div className={styles["projects-table"]}>
+                        <Table tableItems={projectTableItems} />
+                    </div>
+                    :
+                    <LoadingSpinner />
+            }
         </div>
     )
 }

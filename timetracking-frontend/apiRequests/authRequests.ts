@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from "axios";
-import Result, { resultFromAxiosError } from "../utils/Result";
 import LoginResponse from "../types/apiResponses/LoginResponse";
 import { baseUrl, sendPostRequest } from ".";
 

@@ -2,11 +2,18 @@ import { ReactElement } from "react";
 import styles from "../../styles/utils/Table.module.css"
 
 
+export interface TableItem {
+    [key: string]: string | ReactElement;
+}
+
 export interface TableProps {
-    tableItems: { [key: string]: string | ReactElement }[]
+    tableItems: TableItem[]
 }
 
 const Table = ({ tableItems }: TableProps) => {
+
+
+    if (tableItems.length === 0) return <table></table>
 
     const columns = Object.keys(tableItems[0]);
 

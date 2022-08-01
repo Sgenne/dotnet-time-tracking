@@ -10,7 +10,7 @@ import { resultFromAxiosError } from "../utils/Result"
 import StatusCode from "../utils/StatusCodes"
 
 const Projects = () => {
-    const [userProjects, setUserProjects] = useState<Project[]>();
+    const [userProjects, setUserProjects] = useState<Project[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>();
 
     const { isSignedIn, getAccessToken } = useAuthContext();
@@ -42,12 +42,10 @@ const Projects = () => {
     const newProjectDescriptionStateHandler: ControlledStateHandler<string> =
         useStringInput();
 
-
-    console.log("userProjects: ", userProjects);
-
     return <ProjectPageComponent
         newProjectNameStateHandler={newProjectNameStateHandler}
-        newProjectDescriptionHandler={newProjectDescriptionStateHandler} />
+        newProjectDescriptionHandler={newProjectDescriptionStateHandler}
+        userProjects={userProjects} />
 }
 
 export default withAuthentication(Projects)
