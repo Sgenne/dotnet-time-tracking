@@ -45,21 +45,6 @@ const Login: PageWithLayout = () => {
       authContext.onSignIn(accessToken, user);
       Router.push("/")
     }, 2000)
-
-    // setIsLoading(false);
-    // if (!result.value) {
-    //   const errorMessage: string = result.message || "Login failed";
-    //   setErrorMessage(errorMessage);
-    //   return;
-    // }
-
-    // setErrorMessage("");
-    // const user: User = {
-    //   username: usernameValue,
-    // };
-    // const accessToken = result.value.accessToken;
-    // authContext.onSignIn(accessToken, user);
-    // Router.push("/")
   };
 
   return (

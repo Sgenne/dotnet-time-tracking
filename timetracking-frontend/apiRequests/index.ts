@@ -42,18 +42,6 @@ const sendRequest = async <TApiResponse>(
 ): Promise<Result<TApiResponse>> => {
   let result: AxiosResponse<TApiResponse>;
 
-  const dummyConfig = accessToken
-    ? {
-        ...config,
-        headers: {
-          ...config.headers,
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    : config;
-
-  console.log("sending: ", dummyConfig);
-
   try {
     result = await requestFunction(
       url,
