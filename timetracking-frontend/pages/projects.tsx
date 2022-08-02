@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { getUserProjects } from "../apiRequests/projectRequests"
+import { useNoNavbarLayout } from "../components/layouts/NoNavbarLayout"
 import ProjectPageComponent from "../components/projects/ProjectsPageComponent"
 import { useAuthContext } from "../context/AuthContext"
 import withAuthentication from "../higherOrderComponents/WithAuthentication"
 import useStringInput from "../hooks/useStringInput"
 import ControlledStateHandler from "../types/ControlledStateHandler"
 import Project from "../types/domain/Project"
+import PageWithLayout from "../types/PageWithLayout"
 import { resultFromAxiosError } from "../utils/Result"
 import StatusCode from "../utils/StatusCodes"
 
@@ -48,4 +50,10 @@ const Projects = () => {
         userProjects={userProjects} />
 }
 
-export default withAuthentication(Projects)
+export default withAuthentication(Projects);
+
+// const authenticatedComponent: PageWithLayout = withAuthentication(Projects);
+
+// authenticatedComponent.getLayout = useNoNavbarLayout;
+
+// export default authenticatedComponent;

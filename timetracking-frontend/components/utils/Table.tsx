@@ -34,8 +34,12 @@ const Table = ({ tableItems }: TableProps) => {
 
     return (
         <table className={styles["table"]}>
-            {tableHeader}
-            {tableRows}
+            <thead>
+                {tableHeader}
+            </thead>
+            <tbody>
+                {tableRows}
+            </tbody>
         </table>
     )
 }

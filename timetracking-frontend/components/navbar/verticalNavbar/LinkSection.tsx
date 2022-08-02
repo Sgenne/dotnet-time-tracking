@@ -11,7 +11,7 @@ export interface LinkSectionProps {
 
 const LinkSection = ({ header, links }: LinkSectionProps) => {
 
-    const iconLinks: ReactElement[] = links.map(linkProps => <li className={styles["link-item"]} key={header + links}>
+    const iconLinks: ReactElement[] = links.map((linkProps, index) => <li className={styles["link-item"]} key={index}>
         <IconLink {...linkProps} />
     </li>)
 
