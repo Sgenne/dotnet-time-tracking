@@ -1,3 +1,4 @@
+import { withDefaultLayout } from "../components/layouts/DefaultLayout";
 import withAuthentication from "../higherOrderComponents/WithAuthentication"
 
 const timer = () => {
@@ -6,4 +7,4 @@ const timer = () => {
   )
 }
 
-export default withAuthentication(timer);
+export default withAuthentication(withDefaultLayout(timer));

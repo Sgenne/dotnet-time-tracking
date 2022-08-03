@@ -1,10 +1,9 @@
-import type { NextPage } from "next";
 import Router from "next/router";
 import { useEffect } from "react";
+import { withDefaultLayout } from "../components/layouts/DefaultLayout";
 import withAuthentication from "../higherOrderComponents/WithAuthentication";
 
-const Home: NextPage = () => {
-
+const Home = () => {
   useEffect(() => {
     Router.push("/timer");
   }, []);
@@ -16,4 +15,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default withAuthentication(Home);
+export default withAuthentication(withDefaultLayout(Home));

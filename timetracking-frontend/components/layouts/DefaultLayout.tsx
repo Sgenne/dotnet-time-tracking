@@ -19,6 +19,8 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 
 export default DefaultLayout;
 
-export const useDefaultLayout = (page: ReactElement) => (
-  <DefaultLayout>{page}</DefaultLayout>
-);
+export const withDefaultLayout = (Component: () => ReactElement) => {
+  const ComponentWithLayout = () => <DefaultLayout><Component /></DefaultLayout>
+  return ComponentWithLayout;
+}
+

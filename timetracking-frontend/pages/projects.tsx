@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getUserProjects } from "../apiRequests/projectRequests"
+import { withDefaultLayout } from "../components/layouts/DefaultLayout"
 import { useNoNavbarLayout } from "../components/layouts/NoNavbarLayout"
 import ProjectPageComponent from "../components/projects/ProjectsPageComponent"
 import { useAuthContext } from "../context/AuthContext"
@@ -50,10 +51,4 @@ const Projects = () => {
         userProjects={userProjects} />
 }
 
-export default withAuthentication(Projects);
-
-// const authenticatedComponent: PageWithLayout = withAuthentication(Projects);
-
-// authenticatedComponent.getLayout = useNoNavbarLayout;
-
-// export default authenticatedComponent;
+export default withAuthentication(withDefaultLayout(Projects));

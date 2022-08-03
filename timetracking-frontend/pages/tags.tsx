@@ -1,3 +1,4 @@
+import { withDefaultLayout } from "../components/layouts/DefaultLayout";
 import withAuthentication from "../higherOrderComponents/WithAuthentication"
 
 const tags = () => {
@@ -6,4 +7,4 @@ const tags = () => {
   )
 }
 
-export default withAuthentication(tags);
+export default withAuthentication(withDefaultLayout(tags));
