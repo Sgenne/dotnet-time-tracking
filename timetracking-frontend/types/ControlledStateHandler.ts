@@ -1,4 +1,7 @@
 export default interface ControlledStateHandler<T> {
   value: T;
-  changeHandler: (t: T) => void;
+  onChange: (t: T) => void;
+  onBlur: () => void;
+  hasError: boolean;
+  errorMessage?: string;
 }

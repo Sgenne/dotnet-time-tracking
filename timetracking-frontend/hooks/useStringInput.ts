@@ -10,7 +10,7 @@ const useStringInput = (initialValue = ""): ControlledStateHandler<string> => {
 
   return {
     value,
-    changeHandler,
+    onChange: changeHandler,
   };
 };
 

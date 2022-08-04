@@ -21,9 +21,9 @@ const LoginPageComponent = ({
   errorMessage,
   isLoading
 }: LoginPageComponentProps) => {
-  const { changeHandler: usernameChangeHandler, value: usernameValue } =
+  const { onChange: usernameChangeHandler, value: usernameValue } =
     usernameHandler;
-  const { changeHandler: passwordChangeHandler, value: passwordValue } =
+  const { onChange: passwordChangeHandler, value: passwordValue } =
     passwordHandler;
 
   const pageClassName = `${styles["page-container"]} ${isLoading ? styles["loading"] : ""}`

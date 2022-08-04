@@ -5,18 +5,19 @@ import standardStyles from "../../../styles/utils/input/TextInput.module.css";
 
 export type GenericTextInputProps = TextInputProps & {
   styles: { [key: string]: string };
-  hidden?: boolean
+  hidden?: boolean,
 };
 
-const TextInput = ({ onChange, value, styles, hidden = false }: GenericTextInputProps) => {
+const TextInput = ({ onChange, value, styles, hidden = false, hasError = false, onBlur }: GenericTextInputProps) => {
   const changeHandler: ChangeEventHandler<HTMLInputElement> =
     getInputChangeHandler(onChange);
 
   const inputType = hidden ? "password" : "default";
-  const className = `${standardStyles["input"]} ${styles["input"]}`
+  const className =
+    `${standardStyles["input"]} ${styles["input"]} ${hasError ? standardStyles["error"] : ""}`
 
   return (
-    <input className={className} type={inputType} value={value} onChange={changeHandler} />
+    <input className={className} type={inputType} value={value} onChange={changeHandler} onBlur={onBlur} />
   );
 };
 
