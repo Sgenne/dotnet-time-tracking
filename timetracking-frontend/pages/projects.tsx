@@ -11,6 +11,7 @@ import Project from "../types/domain/Project"
 import PageWithLayout from "../types/PageWithLayout"
 import { resultFromAxiosError } from "../utils/Result"
 import StatusCode from "../utils/StatusCodes"
+import { getNonEmptyStringValidator, validateNonEmptyString } from "../utils/validators/NonEmptyStringValidator"
 
 const Projects = () => {
     const [userProjects, setUserProjects] = useState<Project[]>([]);
@@ -41,7 +42,7 @@ const Projects = () => {
 
 
     const newProjectNameStateHandler: ControlledStateHandler<string> =
-        useStringInput();
+        useStringInput({ validator: validateNonEmptyString });
     const newProjectDescriptionStateHandler: ControlledStateHandler<string> =
         useStringInput();
 

@@ -11,8 +11,8 @@ export interface useStringInputProps {
 
 const useStringInput = ({
   defaultValue = "",
-  validator = noOpValidator,
-}: useStringInputProps): ControlledStateHandler<string> => {
+  validator = noOpValidator<string>,
+}: useStringInputProps = {}): ControlledStateHandler<string> => {
   const [value, setValue] = useState(defaultValue);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -21,17 +21,15 @@ const useStringInput = ({
   const changeHandler: OnStringChange = (newValue: string) => {
     setIsTouched(true);
     setValue(newValue);
-    if (hasError) validate();
+    if (hasError) validate(newValue);
   };
 
   const blurHandler = () => {
-    if (!isTouched) return;
-
-    validate();
+    if (isTouched) validate(value);
   };
 
-  const validate = () => {
-    const { message, isValid } = validator(value);
+  const validate = (valueToValidate: string) => {
+    const { message, isValid } = validator(valueToValidate);
     if (!isValid) {
       setHasError(true);
       setErrorMessage(message);
