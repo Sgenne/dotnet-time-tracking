@@ -5,17 +5,15 @@ import ClearTextInput from "../utils/input/ClearTextInput";
 import TextArea from "../utils/input/TextArea";
 import ControlledStateHandler from "../../types/ControlledStateHandler";
 import PrimaryButton from "../utils/buttons/PrimaryButton";
-import Validator from "../../types/Validator";
 
 export interface NewProjectModalProps {
     nameStateHandler: ControlledStateHandler<string>;
     descriptionStateHandler: ControlledStateHandler<string>;
-    nameValidator: Validator<string>;
     onClose: () => void;
     onSubmit: () => void;
 }
 
-const NewProjectModal = ({ nameStateHandler, descriptionStateHandler, onClose }: NewProjectModalProps) => {
+const NewProjectModal = ({ nameStateHandler, descriptionStateHandler, onClose, onSubmit }: NewProjectModalProps) => {
     return (
         <Modal>
             <div className={styles["container"]}>
@@ -48,7 +46,7 @@ const NewProjectModal = ({ nameStateHandler, descriptionStateHandler, onClose }:
                     </div>
                 </div>
                 <div className={styles["submit-button"]}>
-                    <PrimaryButton onClick={() => { }}>Create Project</PrimaryButton>
+                    <PrimaryButton onClick={onSubmit}>Create Project</PrimaryButton>
                 </div>
             </div>
         </Modal>

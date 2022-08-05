@@ -1,55 +1,57 @@
 import { useEffect, useState } from "react"
-import { getUserProjects } from "../apiRequests/projectRequests"
 import { withDefaultLayout } from "../components/layouts/DefaultLayout"
-import { useNoNavbarLayout } from "../components/layouts/NoNavbarLayout"
 import ProjectPageComponent from "../components/projects/ProjectsPageComponent"
 import { useAuthContext } from "../context/AuthContext"
 import withAuthentication from "../higherOrderComponents/WithAuthentication"
+import useProjectHandler from "../hooks/UseProjectHandler"
 import useStringInput from "../hooks/useStringInput"
 import ControlledStateHandler from "../types/ControlledStateHandler"
 import Project from "../types/domain/Project"
-import PageWithLayout from "../types/PageWithLayout"
-import { resultFromAxiosError } from "../utils/Result"
-import StatusCode from "../utils/StatusCodes"
-import { getNonEmptyStringValidator, validateNonEmptyString } from "../utils/validators/NonEmptyStringValidator"
+import { validateNonEmptyString } from "../utils/validators/NonEmptyStringValidator"
 
 const Projects = () => {
-    const [userProjects, setUserProjects] = useState<Project[]>([]);
-    const [errorMessage, setErrorMessage] = useState<string>();
+  const [showNewProjectModal, setShowNewProjectModal] = useState(false);
 
-    const { isSignedIn, getAccessToken } = useAuthContext();
+  const {
+    userProjects,
+    setAccessToken: setProjectHandlerAccessToken,
+    error: projectHandlerError,
+    createProjectHandler, } = useProjectHandler();
+  const { getAccessToken } = useAuthContext();
 
-    useEffect(() => {
-        if (!isSignedIn) return;
+  useEffect(() => {
+    const accessToken = getAccessToken();
+    setProjectHandlerAccessToken(accessToken)
+  }, [getAccessToken, setProjectHandlerAccessToken])
 
-        const fetchUserProjects = async () => {
-            const accessToken = getAccessToken();
-            const { value: fetchedUserProjects, status } = await getUserProjects(accessToken);
+  const newProjectNameStateHandler: ControlledStateHandler<string> =
+    useStringInput({ validator: validateNonEmptyString });
+  const newProjectDescriptionStateHandler: ControlledStateHandler<string> =
+    useStringInput();
 
-            if (!(fetchedUserProjects && status === StatusCode.OK)) {
-                // Todo: redirect to error page.
-                setErrorMessage("The projects could not be loaded.")
-                return;
-            }
+  const newProjectSubmitHandler = async () => {
+    const projectTitle = newProjectNameStateHandler.value;
+    const projectDescription = newProjectDescriptionStateHandler.value;
 
-            setUserProjects(fetchedUserProjects);
-            setErrorMessage(undefined);
-        }
+    const newProject: Project = { title: projectTitle, description: projectDescription };
 
-        fetchUserProjects();
+    await createProjectHandler(newProject);
 
-    }, [isSignedIn, getAccessToken])
+    setShowNewProjectModal(false);
+  }
 
+  const newProjectModalOpenHandler = () => setShowNewProjectModal(true);
+  const newProjectModalCloseHandler = () => setShowNewProjectModal(false);
 
-    const newProjectNameStateHandler: ControlledStateHandler<string> =
-        useStringInput({ validator: validateNonEmptyString });
-    const newProjectDescriptionStateHandler: ControlledStateHandler<string> =
-        useStringInput();
-
-    return <ProjectPageComponent
-        newProjectNameStateHandler={newProjectNameStateHandler}
-        newProjectDescriptionHandler={newProjectDescriptionStateHandler}
-        userProjects={userProjects} />
+  return <ProjectPageComponent
+    newProjectNameStateHandler={newProjectNameStateHandler}
+    newProjectDescriptionHandler={newProjectDescriptionStateHandler}
+    userProjects={userProjects}
+    onCreateNewProject={newProjectSubmitHandler}
+    errorMessage={projectHandlerError}
+    showNewProjectModal={showNewProjectModal}
+    onNewProjectModalClose={newProjectModalCloseHandler}
+    onNewProjectModalOpen={newProjectModalOpenHandler} />
 }
 
 export default withAuthentication(withDefaultLayout(Projects));

@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import styles from "../../styles/utils/ErrorMessage.module.css";
 
 export interface ErrorMessageProps {
-  children: ReactElement | string;
+  children?: ReactElement | string;
 }
 
 const ErrorMessage = ({ children }: ErrorMessageProps) => {
