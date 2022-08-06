@@ -1,10 +1,10 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import styles from "../../../styles/utils/loading/LoadingSpinner.module.css";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ color = "#ffeed9" }) => {
   return (
     <div className={styles["container"]}>
-      <ClipLoader size={70} color="#ffeed9" />
+      <ClipLoader size={70} color={color} />
     </div>
   );
 };
