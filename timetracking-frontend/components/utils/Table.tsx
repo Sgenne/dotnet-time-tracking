@@ -4,7 +4,7 @@ import styles from "../../styles/utils/Table.module.css"
 
 export interface TableItem {
     content: {
-        [key: string]: string | ReactElement;
+        [key: string]: string | number | ReactElement;
     },
     onClick?: () => void;
 }
@@ -23,7 +23,7 @@ const Table = ({ tableItems }: TableProps) => {
     const tableHeader = <tr className={styles["header"]}>
         {
             columns.map(
-                col => <th key={col}>
+                col => <th className={styles["column-title"]} key={col}>
                     {col}
                 </th>
             )

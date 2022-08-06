@@ -5,7 +5,9 @@ import PrimaryButton from "../utils/buttons/PrimaryButton";
 import ErrorMessage from "../utils/ErrorMessage";
 import PlusIcon from "../utils/icons/PlusIcon";
 import LoadingSpinner from "../utils/loading/LoadingSpinner";
+import PageContainer from "../utils/PageContainer";
 import Table, { TableItem } from "../utils/Table";
+import WhiteTopBar from "../utils/WhiteTopBar";
 import NewProjectModal from "./NewProjectModal";
 
 export interface ProjectsPageComponentProps {
@@ -46,32 +48,36 @@ const ProjectsPageComponent = ({
         onSubmit={onCreateNewProject} /> : <></>
 
     return (
-        <div className={styles["page-container"]}>
-            {displayedNewProjectModal}
-            <div className={styles["top-bar"]}>
-                <h2>Projects</h2>
-                <span className={styles["new-project-button-container"]}>
-                    <PrimaryButton onClick={onNewProjectModalOpen}>
-                        <>
-                            <PlusIcon />
-                            <span className={styles["new-project-button__text"]}>New Project</span>
-                        </>
-                    </PrimaryButton>
-                </span>
-            </div>
-            <div className={styles["error-message-container"]}>
-                <ErrorMessage>{errorMessage}</ErrorMessage>
-            </div>
-            {
-                userProjects
-                    ?
-                    <div className={styles["projects-table"]}>
-                        <Table tableItems={projectTableItems} />
-                    </div>
-                    :
-                    <LoadingSpinner />
-            }
-        </div>
+        <PageContainer>
+            <>
+                {displayedNewProjectModal}
+                <WhiteTopBar>
+                    <>
+                        <h2>Projects</h2>
+                        <span className={styles["new-project-button-container"]}>
+                            <PrimaryButton onClick={onNewProjectModalOpen}>
+                                <>
+                                    <PlusIcon />
+                                    <span className={styles["new-project-button__text"]}>New Project</span>
+                                </>
+                            </PrimaryButton>
+                        </span>
+                    </>
+                </WhiteTopBar>
+                <div className={styles["error-message-container"]}>
+                    <ErrorMessage>{errorMessage}</ErrorMessage>
+                </div>
+                {
+                    userProjects
+                        ?
+                        <div className={styles["projects-table"]}>
+                            <Table tableItems={projectTableItems} />
+                        </div>
+                        :
+                        <LoadingSpinner />
+                }
+            </>
+        </PageContainer>
     )
 }
 

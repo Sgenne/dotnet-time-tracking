@@ -1,22 +1,3 @@
-.page-container {
-  background-color: #fef9f7;
-  width: 100%;
-  height: 100vh;
-}
-
-.top-bar {
-  top: 0;
-  margin-bottom: 16px;
-  width: 100%;
-  height: fit-content;
-  padding: 12px 38px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0px 3px 6px rgba(100, 100, 100, 0.2);
-}
-
 .new-project-button-container {
   display: inline-block;
   width: fit-content;
@@ -28,8 +9,6 @@
 }
 
 .projects-table {
-  width: fit-content;
-  background-color: white;
   width: 100%;
 }
 

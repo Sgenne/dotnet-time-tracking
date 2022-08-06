@@ -1,5 +1,6 @@
 .button {
     width: 100%;
+    min-width: fit-content;
     height: 100%;
     padding: 10px;
     font-size: 12pt;
@@ -9,6 +10,9 @@
     border: none;
     color: white;    
     transition: background-color 0.12s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button:hover {

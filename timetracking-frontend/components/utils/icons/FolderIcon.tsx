@@ -1,2 +1,5 @@
 import { IoFolder } from "react-icons/io5";
-export default <IoFolder />;    
+
+const FolderIcon = () => <IoFolder />
+
+export default FolderIcon;    

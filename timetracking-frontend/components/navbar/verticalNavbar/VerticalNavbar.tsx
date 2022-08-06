@@ -11,7 +11,7 @@ const linkSectionProps: LinkSectionProps[] = [
             {
                 href: "/timer",
                 linkText: "Timer",
-                icon: ClockIcon
+                icon: <ClockIcon />
             }
         ]
     },
@@ -21,12 +21,12 @@ const linkSectionProps: LinkSectionProps[] = [
             {
                 href: "/projects",
                 linkText: "Projects",
-                icon: FolderIcon
+                icon: <FolderIcon />
             },
             {
                 href: "/tags",
                 linkText: "Tags",
-                icon: TagIcon
+                icon: <TagIcon />
             }
         ]
     }

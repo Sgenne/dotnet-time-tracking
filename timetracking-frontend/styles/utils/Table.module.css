@@ -1,14 +1,14 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  background-color: white;
 }
 
-.header th {
+.column-title {
   text-align: start;
-  padding-left: 16px;
 }
 
-.row {
+.row, .column-title {
   border-bottom: 1px solid #0000002f;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .row td,
-.row th {
+.column-title {
   padding: 16px;
 }
 
