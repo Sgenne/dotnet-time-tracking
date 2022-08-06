@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { withDefaultLayout } from '../../components/layouts/DefaultLayout';
+import SingleProjectPageComponent from '../../components/projects/SingleProjectPageComponent';
 import BlackLoadingSpinner from '../../components/utils/loading/BlackLoadingSpinner';
 import LoadingSpinner from '../../components/utils/loading/LoadingSpinner';
 import { useAuthContext } from '../../context/AuthContext';
@@ -27,12 +28,7 @@ const SingleProject = () => {
     <LoadingSpinner />
   </div>
 
-  return (
-    <div>
-      <p>{project.title}</p>
-      <p>{project.description}</p>
-    </div>
-  )
+  return <SingleProjectPageComponent project={project} />
 }
 
 export default withAuthentication(withDefaultLayout(SingleProject))

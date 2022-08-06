@@ -8,12 +8,17 @@
   padding-left: 16px;
 }
 
-.table tr {
+.row {
   border-bottom: 1px solid #0000002f;
 }
 
-.table tr td,
-.table tr th {
+.row:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.row td,
+.row th {
   padding: 16px;
 }
 

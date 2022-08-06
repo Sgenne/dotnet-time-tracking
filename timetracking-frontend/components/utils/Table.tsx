@@ -30,7 +30,7 @@ const Table = ({ tableItems }: TableProps) => {
         }
     </tr>
 
-    const tableRows = tableItems.map((item, itemIndex) => <tr onClick={item.onClick} key={itemIndex}>
+    const tableRows = tableItems.map((item, itemIndex) => <tr className={styles["row"]} onClick={item.onClick} key={itemIndex}>
         {columns.map(col => <td key={itemIndex + col}>{item.content[col]}</td>)}
     </tr>)
 
