@@ -22,8 +22,9 @@ public class ProjectService : IProjectService
     /// Creates a new Project using the given information.
     /// </summary>
     /// <param name="createProjectDto">Contains the information used to create the new Project.</param>
+    /// <param name="ownerId">The id of the creating user.</param>
     /// <returns>A Result object describing the outcome of the operation.</returns>
-    public async Task<Result<ProjectDto>> CreateProject(CreateProjectDto createProjectDto)
+    public async Task<Result<ProjectDto>> CreateProject(CreateProjectDto createProjectDto, int ownerId)
     {
         Result<CreateProjectDto> validationResult = ProjectValidation
             .ValidateCreateProjectDto(createProjectDto);
@@ -39,7 +40,7 @@ public class ProjectService : IProjectService
                 {
                     Description = createProjectDto.Description,
                     Title = createProjectDto.Title,
-                    UserId = createProjectDto.OwnerId,
+                    UserId = ownerId,
                 });
 
         Result<ProjectDto> SuccessHandler(Project p) => Result<ProjectDto>.Success(ProjectDto.Of(p),

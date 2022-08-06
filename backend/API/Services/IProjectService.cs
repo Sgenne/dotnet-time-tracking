@@ -13,7 +13,7 @@ public interface IProjectService
     /// </summary>
     /// <param name="createProjectDto">Contains the information used to create the new Project.</param>
     /// <returns>A Result object describing the outcome of the operation.</returns>
-    Task<Result<ProjectDto>> CreateProject(CreateProjectDto createProjectDto);
+    Task<Result<ProjectDto>> CreateProject(CreateProjectDto createProjectDto, int ownerId);
 
     /// <summary>
     /// Finds and returns the Project with the given ID if one exists.

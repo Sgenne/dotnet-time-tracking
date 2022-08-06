@@ -20,7 +20,6 @@ public static class ProjectValidation
     {
         string title = createProjectDto.Title;
         string description = createProjectDto.Description;
-        int ownerId = createProjectDto.OwnerId;
 
         Result<string> titleResult = ValidateProjectTitle(title);
         Result<string> descriptionResult = ValidateProjectDescription(description);
@@ -39,7 +38,6 @@ public static class ProjectValidation
         {
             Title = title,
             Description = description,
-            OwnerId = ownerId
         });
     }
 

@@ -16,7 +16,6 @@ public class ProjectValidationTests
         {
             Title = title,
             Description = description,
-            OwnerId = ownerId
         };
 
         Result<CreateProjectDto> validationResult = ProjectValidation.ValidateCreateProjectDto(createProjectDto);
@@ -40,7 +39,6 @@ public class ProjectValidationTests
         {
             Title = title,
             Description = description,
-            OwnerId = ownerId
         };
 
         Result<CreateProjectDto> validationResult = ProjectValidation.ValidateCreateProjectDto(createProjectDto);

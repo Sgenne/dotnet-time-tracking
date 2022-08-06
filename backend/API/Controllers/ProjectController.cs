@@ -29,8 +29,6 @@ public class ProjectController : ControllerBase
     public async Task<IActionResult> GetCreatedProjects()
     {
         Optional<int> optionalUserId = HttpContext.User.GetId();
-
-        Console.WriteLine("here");
         
         if (optionalUserId.IsEmpty) return this.NoUserIdResponse();
 
@@ -45,9 +43,15 @@ public class ProjectController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
     {
+        Optional<int> optionalUserId = HttpContext.User.GetId();
+        
+        if (optionalUserId.IsEmpty) return this.NoUserIdResponse();
+   
+        int userId = optionalUserId.Some();
+
         Result<ProjectDto> result =
             await _projectService
-                .CreateProject(createProjectDto);
+                .CreateProject(createProjectDto, userId);
 
         return result.Match<IActionResult>(
             project => Created($"{HttpContext.Request.Host}/project/{project.Id}", project),
