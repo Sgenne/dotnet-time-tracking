@@ -10,13 +10,17 @@ export const getUserProjects = (
   sendGetRequest<Project[]>({
     url: BASE_PROJECTS_URL,
     accessToken: accessToken,
-    successMessage: "Projects fetched successfully.",
   });
 
 export const createProject = (accessToken: string, project: Project) =>
   sendPostRequest<Project>({
     url: BASE_PROJECTS_URL,
     accessToken: accessToken,
-    successMessage: "The new project was created successfully.",
     data: project,
+  });
+
+export const getProjectById = (accessToken: string, projectId: number) =>
+  sendGetRequest<Project>({
+    url: `${BASE_PROJECTS_URL}/${projectId}`,
+    accessToken: accessToken,
   });

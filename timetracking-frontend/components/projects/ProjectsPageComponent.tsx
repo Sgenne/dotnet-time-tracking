@@ -8,7 +8,7 @@ import LoadingSpinner from "../utils/loading/LoadingSpinner";
 import Table, { TableItem } from "../utils/Table";
 import NewProjectModal from "./NewProjectModal";
 
-export interface ProjectPageComponentProps {
+export interface ProjectsPageComponentProps {
     newProjectNameStateHandler: ControlledStateHandler<string>;
     newProjectDescriptionHandler: ControlledStateHandler<string>;
     userProjects: Project[];
@@ -17,9 +17,10 @@ export interface ProjectPageComponentProps {
     showNewProjectModal: boolean;
     onNewProjectModalOpen: () => void;
     onNewProjectModalClose: () => void;
+    onProjectClick: (project: Project) => void;
 }
 
-const ProjectPageComponent = ({
+const ProjectsPageComponent = ({
     newProjectNameStateHandler,
     newProjectDescriptionHandler,
     userProjects,
@@ -27,15 +28,15 @@ const ProjectPageComponent = ({
     errorMessage,
     showNewProjectModal,
     onNewProjectModalOpen,
-    onNewProjectModalClose }: ProjectPageComponentProps) => {
-    // const [showNewProjectModal, setShowNewProjectModal] = useState(false);
-
-    // const newProjectClickHandler = () => setShowNewProjectModal(true);
-    // const newProjectCloseHandler = () => setShowNewProjectModal(false);
+    onNewProjectModalClose,
+    onProjectClick }: ProjectsPageComponentProps) => {
 
     const projectTableItems: TableItem[] = userProjects.map(project => ({
-        Project: project.title,
-        "Time Status": "7h"
+        content: {
+            Project: project.title,
+            "Time Status": "7h"
+        },
+        onClick: () => onProjectClick(project)
     }))
 
     const displayedNewProjectModal = showNewProjectModal ? <NewProjectModal
@@ -74,4 +75,4 @@ const ProjectPageComponent = ({
     )
 }
 
-export default ProjectPageComponent
+export default ProjectsPageComponent

@@ -1,16 +1,19 @@
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { withDefaultLayout } from "../components/layouts/DefaultLayout"
-import ProjectPageComponent from "../components/projects/ProjectsPageComponent"
-import { useAuthContext } from "../context/AuthContext"
-import withAuthentication from "../higherOrderComponents/WithAuthentication"
-import useProjectHandler from "../hooks/UseProjectHandler"
-import useStringInput from "../hooks/useStringInput"
-import ControlledStateHandler from "../types/ControlledStateHandler"
-import Project from "../types/domain/Project"
-import { validateNonEmptyString } from "../utils/validators/NonEmptyStringValidator"
+import { withDefaultLayout } from "../../components/layouts/DefaultLayout"
+import ProjectsPageComponent from "../../components/projects/ProjectsPageComponent"
+import { useAuthContext } from "../../context/AuthContext"
+import withAuthentication from "../../higherOrderComponents/WithAuthentication"
+import useProjectHandler from "../../hooks/UseProjectHandler"
+import useStringInput from "../../hooks/useStringInput"
+import ControlledStateHandler from "../../types/ControlledStateHandler"
+import Project from "../../types/domain/Project"
+import { validateNonEmptyString } from "../../utils/validators/NonEmptyStringValidator"
 
 const Projects = () => {
   const [showNewProjectModal, setShowNewProjectModal] = useState(false);
+  const router = useRouter();
+
 
   const {
     userProjects,
@@ -40,10 +43,15 @@ const Projects = () => {
     setShowNewProjectModal(false);
   }
 
+  const projectClickHandler = (project: Project) => {
+    if (!project.id) return;
+    router.push(`/projects/${project.id}`);
+  }
+
   const newProjectModalOpenHandler = () => setShowNewProjectModal(true);
   const newProjectModalCloseHandler = () => setShowNewProjectModal(false);
 
-  return <ProjectPageComponent
+  return <ProjectsPageComponent
     newProjectNameStateHandler={newProjectNameStateHandler}
     newProjectDescriptionHandler={newProjectDescriptionStateHandler}
     userProjects={userProjects}
@@ -51,7 +59,8 @@ const Projects = () => {
     errorMessage={projectHandlerError}
     showNewProjectModal={showNewProjectModal}
     onNewProjectModalClose={newProjectModalCloseHandler}
-    onNewProjectModalOpen={newProjectModalOpenHandler} />
+    onNewProjectModalOpen={newProjectModalOpenHandler}
+    onProjectClick={projectClickHandler} />
 }
 
 export default withAuthentication(withDefaultLayout(Projects));
