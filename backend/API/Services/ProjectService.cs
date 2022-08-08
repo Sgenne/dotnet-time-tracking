@@ -96,4 +96,9 @@ public class ProjectService : IProjectService
             .Select(p => ProjectDto.Of(p))
             .ToList());
     }
+
+    public Task<Result<Activity>> AddActivity(AddActivityDto addActivityDto)
+    {
+        throw new NotImplementedException();
+    }
 }

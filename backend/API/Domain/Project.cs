@@ -6,4 +6,5 @@ public class Project
     public string Title { get; set; }
     public string Description { get; set; }
     public int UserId { get; set; }
+    public List<Activity> Activities { get; set; }
 }

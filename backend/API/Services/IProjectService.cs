@@ -32,4 +32,10 @@ public interface IProjectService
     /// </summary>
     /// <param name="userId">The ID of the user whose created Projects are to be returned.</param>
     Task<Collection<ProjectDto>> GetProjectsByUserId(int userId);
+
+    /// <summary>
+    /// Creates and adds a recorded activity to a project.  
+    /// </summary>
+    /// <returns>The activity that was added.</returns>
+    Task<Result<Activity>> AddActivity(AddActivityDto addActivityDto);
 }
