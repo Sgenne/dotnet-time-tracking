@@ -7,7 +7,7 @@ namespace API.DataAccess;
 public interface IActivityRepository
 {
 
-    public Result<Activity> AddActivity(Activity activity);
-    public Optional<Activity> GetActivityById(int activityId);
-    public List<Activity> GetActivityByProjectId(int projectId);
+    public Task<Result<Activity>> AddActivity(Activity activity);
+    public Task<Optional<Activity>> GetActivityById(int activityId);
+    public Task<IEnumerable<Activity>> GetActivityByProjectId(int projectId);
 }

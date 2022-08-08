@@ -1,6 +1,7 @@
 using API.Domain;
 using API.Utils.Optional;
 using API.Utils.Result;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.DataAccess;
 
@@ -13,18 +14,27 @@ public class ActivityRepository : IActivityRepository
         _dataContext = dataContext;
     }
 
-    public Result<Activity> AddActivity(Activity activity)
+    public async Task<Result<Activity>> AddActivity(Activity activity)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _dataContext.AddAsync(activity);
+            await _dataContext.SaveChangesAsync();
+            return Result<Activity>.Success(activity, "The activity was added successfully.", Status.Created);
+        }
+        catch (DbUpdateException e)
+        {
+            return Result<Activity>.Error(e.Message, Status.Forbidden);
+        }
     }
 
-    public Optional<Activity> GetActivityById(int activityId)
+    public async Task<Optional<Activity>> GetActivityById(int activityId)
     {
-        throw new NotImplementedException();
+        Activity? activity = await _dataContext.Activities.FirstOrDefaultAsync(a => a.Id == activityId);
+
+        return activity == null ? Optional<Activity>.Empty() : Optional<Activity>.Of(activity);
     }
 
-    public List<Activity> GetActivityByProjectId(int projectId)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<Activity>> GetActivityByProjectId(int projectId) =>
+        _dataContext.Activities.Where(a => a.Id == projectId);
 }
